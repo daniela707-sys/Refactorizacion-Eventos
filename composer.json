@@ -1,0 +1,8 @@
+{
+    "name": "tecnoparque/eventos",
+    "description": "Sistema de eventos",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^7.0"
+    }
+}

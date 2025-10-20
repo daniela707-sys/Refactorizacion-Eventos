@@ -2,6 +2,10 @@
 assets/components/eventos/config/gmail_config.php
 assets/components/eventos/config/gmail_token.json
 
+# Composer
+vendor/
+composer.lock
+
 # Archivos de sistema
 .DS_Store
 Thumbs.db
