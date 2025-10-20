@@ -1,0 +1,390 @@
+.product__all-price .original-price {
+    text-decoration: line-through;
+    color: #888;
+    /* O cualquier color que desees para el precio tachado */
+    margin-right: 10px;
+}
+
+.product__all-price .discounted-price {
+    color: #50a72c;
+    /* Puedes cambiar el color para destacar el precio con descuento */
+    font-weight: bold;
+}
+
+.custom-price-filter {
+    font-family: 'Arial', sans-serif;
+    /* Font family */
+    padding: 20px;
+    background-color: var(--ogenix-extra);
+    /* Light border */
+    border-radius: 8px;
+    /* Rounded corners */
+    /* Subtle shadow */
+    width: 100%;
+    /* Fixed width for the filter */
+    margin: 0 auto;
+    /* Center the filter */
+}
+
+.custom-title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 20px;
+    margin: 0;
+    font-family: var(--ogenix-font);
+    color: var(--ogenix-black);
+}
+
+
+
+.custom-ranger-min-max {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+.custom-ranger-inputs {
+    display: flex;
+    /* Flex layout for inputs */
+    align-items: center;
+    /* Center items vertically */
+}
+
+.custom-min,
+.custom-max {
+    border: 2px solid #a0a0a0;
+
+    border-radius: 4px;
+
+    padding: 8px;
+
+    width: 70px;
+
+    margin: 0 5px;
+
+    text-align: center;
+
+    font-size: 1rem;
+
+}
+
+.custom-separator {
+    margin: 0 10px;
+    /* Space around the separator */
+    font-size: 1.5rem;
+    /* Larger font for separator */
+    color: #4b4b4b;
+    /* Dark color for separator */
+}
+
+.custom-price-filter-button {
+    text-align: center;
+    margin: 10px;
+    /* Center the button */
+}
+
+.custom-filter-button {
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 5px 30px 5px;
+    background-color: var(--ogenix-base);
+}
+
+.custom-filter-button:hover {
+    background-color: #4cae4c;
+    /* Darker green on hover */
+}
+
+/* Slider styles */
+#slider-range {
+    height: 6px;
+    /* Height of the slider */
+    background: #e9ecef;
+    /* Background color of the slider */
+    border-radius: 5px;
+    /* Rounded edges */
+    margin: 10px 0;
+    /* Space around the slider */
+}
+
+.ui-slider-handle {
+    width: 20px;
+    /* Width of the slider handles */
+    height: 20px;
+    /* Height of the slider handles */
+    background: #f39c12;
+    /* Color of the handles */
+    border-radius: 50%;
+    /* Circular handles */
+    border: 2px solid white;
+    /* White border around handles */
+    cursor: pointer;
+    /* Pointer on hover */
+}
+
+/* select */
+
+/* Estilos para el contenedor de botones */
+.sort-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Estilos para los botones */
+.sort-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    /* Color de fondo azul */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    /* Elimina el subrayado de los enlaces */
+    transition: background-color 0.3s ease;
+    /* Efecto suave al pasar el ratón */
+}
+
+/* Efecto hover para los botones */
+.sort-btn:hover {
+    background-color: #0056b3;
+    /* Color de fondo más oscuro al pasar el ratón */
+}
+
+/* Para mejorar el estilo en dispositivos móviles */
+@media (max-width: 600px) {
+    .sort-btn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    ul#filter-list {
+        max-height: 271px !important;
+        overflow: auto !important;
+    }
+}
+
+
+/* Estilos del contenedor del spinner */
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* Ocupa toda la pantalla vertical */
+}
+
+/* Estilos del spinner */
+.spinner {
+    width: 50px;
+    /* Tamaño del spinner */
+    height: 50px;
+    border: 6px solid #f3f3f3;
+    /* Color del borde de fondo */
+    border-top: 6px solid #3498db;
+    /* Color del borde animado */
+    border-radius: 50%;
+    /* Hace el borde circular */
+    animation: spin 1s linear infinite;
+    /* Animación de giro */
+}
+
+/* Animación de rotación */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.custom-ranger-container {
+    position: relative;
+    height: 50px;
+    /* Ajustado para dejar espacio extra */
+    margin-bottom: 10px;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    /* Evita que ambos inputs interfieran visualmente */
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+input[type=range]::-moz-range-track {
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+/* Personalización de las "bolitas" (thumb) para ambos sliders */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #28a745;
+    /* Color verde */
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    pointer-events: all;
+    /* Reactivar eventos para que los sliders sean interactivos */
+}
+
+input[type=range]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #28a745;
+    /* Color verde */
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    pointer-events: all;
+    /* Reactivar eventos */
+}
+
+/* Aplicar el mismo estilo al rango de ambos sliders */
+input[type=range]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #ddd, #28a745, #28a745, #ddd);
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+/* Alineación de los valores de mínimo y máximo */
+.range-labels {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20%;
+}
+
+.range-labels span {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+    /* Espaciado adicional entre los números y la barra */
+}
+
+.nice-select {
+    width: 100% !important;
+}
+
+.nice-select .list {
+    max-height: 240px !important;
+    overflow-y: auto !important;
+}
+
+.product__all-btn-box {
+    margin-top: 0px !important;
+}
+
+.product__all-content {
+    margin-top: 5px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-evenly !important;
+    flex-wrap: nowrap !important;
+    height: 40% !important;
+}
+
+.container_star-filter {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.container_star-filter label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 5px;
+}
+
+.container_star-filter label div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.shop-category.product__sidebar-single {
+    zoom: 0.8;
+}
+
+.loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 300px;
+    text-align: center;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid var(--ogenix-primary, #3498db);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-indicator p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.shop-category ul li a.active {
+    background-color: var(--ogenix-primary);
+    color: #000000;
+}
+
+.shop-category ul li a:hover,
+.shop-category ul li a.active:hover {
+    background-color: var(--ogenix-primary);
+    color: #000000;
+}

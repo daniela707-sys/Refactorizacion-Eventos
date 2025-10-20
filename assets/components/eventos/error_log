@@ -1,0 +1,9 @@
+[05-Aug-2025 19:48:46 UTC] [2025-08-05 19:48:46] Base de datos encontrada en: /home/fgjccq3tdzpq/public_html/redemprendedores/eventos/assets/components/eventos/../../../../include/dbcommon.php
+[05-Aug-2025 19:48:46 UTC] [2025-08-05 19:48:46] Iniciando proceso de registro | Context: {"evento_id":30,"email":"danielapatinocas707@gmail.com","nombre":"daniela"}
+[05-Aug-2025 19:48:46 UTC] [2025-08-05 19:48:46] Error general en el proceso | Context: {"error":"No hay cupos disponibles para este evento"}
+[05-Aug-2025 19:51:53 UTC] [2025-08-05 19:51:53] Base de datos encontrada en: /home/fgjccq3tdzpq/public_html/redemprendedores/eventos/assets/components/eventos/../../../../include/dbcommon.php
+[05-Aug-2025 19:51:53 UTC] [2025-08-05 19:51:53] Iniciando proceso de registro | Context: {"evento_id":1,"email":"danielapatinocas707@gmail.com","nombre":"Daniela Pati\u00f1o Castro"}
+[05-Aug-2025 19:51:53 UTC] [2025-08-05 19:51:53] Error general en el proceso | Context: {"error":"Ya existe un registro con este email o documento para este evento"}
+[05-Aug-2025 19:53:52 UTC] [2025-08-05 19:53:52] Base de datos encontrada en: /home/fgjccq3tdzpq/public_html/redemprendedores/eventos/assets/components/eventos/../../../../include/dbcommon.php
+[05-Aug-2025 19:53:52 UTC] [2025-08-05 19:53:52] Iniciando proceso de registro | Context: {"evento_id":35,"email":"danielapatinocas707@gmail.com","nombre":"Daniela Pati\u00f1o"}
+[05-Aug-2025 19:53:52 UTC] [2025-08-05 19:53:52] Error general en el proceso | Context: {"error":"No hay cupos disponibles para este evento"}

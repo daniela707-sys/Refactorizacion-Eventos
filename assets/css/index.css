@@ -1,0 +1,2177 @@
+    .banner {
+        height: 60vh;
+        background-size: cover;
+        background-position: center;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        text-align: center;
+        padding: 20px;
+        transition: background-image 1s ease-in-out;
+    }
+
+    .banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
+
+    .banner-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1000px;
+    }
+
+    .banner h1 {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        font-weight: 700;
+        color: white;
+    }
+
+    .banner p {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
+
+    .dots {
+        position: absolute;
+        bottom: 20px;
+        left: 40px;
+        display: flex;
+        gap: 10px;
+        z-index: 1;
+    }
+
+    .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .dot.active {
+        background: #50A72C;
+    }
+
+    /* Sección de categorías */
+    .page-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+    }
+
+    .categories-showcase {
+        background-color: #f5f5f7;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 40px;
+    }
+
+    .showcase-heading {
+        color: #1a1a1a;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        padding-left: 10px;
+    }
+
+    .showcase-subheading {
+        color: #444;
+        font-size: 14px;
+        margin-bottom: 20px;
+        padding-left: 10px;
+    }
+
+    .category-items {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .category-item {
+        background-color: #f0f0f2;
+        border-radius: 15px;
+        padding: 15px;
+        width: 135px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+
+    .category-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .category-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    .category-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .category-label {
+        color: #1a1a1a;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+        .category-items {
+            gap: 10px;
+        }
+
+        .category-item {
+            width: 110px;
+            padding: 12px;
+        }
+
+        .category-image {
+            width: 70px;
+            height: 70px;
+        }
+
+        .category-label {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .categories-showcase {
+            padding: 15px 10px;
+        }
+
+        .showcase-heading {
+            font-size: 20px;
+        }
+
+        .showcase-subheading {
+            font-size: 12px;
+        }
+
+        .category-items {
+            gap: 8px;
+        }
+
+        .category-item {
+            width: 90px;
+            padding: 10px;
+        }
+
+        .category-image {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    /* Contenedor principal de eventos */
+    .events-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        margin-top: 60px;
+    }
+
+    /* Encabezado de eventos */
+    .events-heading {
+        font-size: 28px;
+        font-weight: 900;
+        margin-bottom: 20px;
+        color: #50a72c;
+    }
+
+    /* Grid de eventos */
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    /* Tarjeta de evento */
+    .event-item {
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #fff;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+    }
+
+    .event-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .event-image {
+        height: 140px;
+        width: 100%;
+        position: relative;
+        background-color: white;
+    }
+
+    .event-image img {
+        width: 100%;
+        height: 100%;
+        padding: 20px !important;
+        background-color: white !important;
+        border-radius: 28px !important;
+        object-fit: cover;
+    }
+
+    .event-status-container {
+        display: none;
+        /* Ya no necesitamos este contenedor */
+    }
+
+    .event-status {
+        background-color: rgb(80 167 44) !important;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        position: absolute;
+        bottom: 10px;
+        left: 20px !important;
+        z-index: 2;
+    }
+
+    .event-details {
+        padding: 12px;
+    }
+
+    .event-title {
+        font-size: 14px;
+        font-weight: 800;
+        color: #333;
+        margin-bottom: 6px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 4px;
+        /* Ajustar margen superior */
+    }
+
+    .event-date {
+        font-size: 13px;
+        color: #555;
+        font-weight: 900;
+    }
+
+    .event-organizer {
+        font-size: 13px;
+        color: black;
+        font-weight: 800;
+    }
+
+    .event-price {
+        font-size: 13px;
+        font-weight: 900;
+        color: #327516;
+    }
+
+    .event-host {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+    }
+
+    .event-followers {
+        font-size: 11px;
+        color: #777;
+        display: flex;
+        align-items: center;
+    }
+
+    .event-followers:before {
+        content: "👤";
+        margin-right: 4px;
+        font-size: 10px;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 992px) {
+        .events-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .events-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .events-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .event-image {
+            height: 120px;
+        }
+
+        .event-details {
+            padding: 10px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .events-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Estilos para el carrusel de eventos populares */
+    .events-carousel-container {
+        padding: 0 20px;
+        position: relative;
+    }
+
+    .events-carousel-container .events-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .carousel-navigation {
+        display: flex;
+        gap: 8px;
+    }
+
+    .nav-button {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid #dbdae3;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #6f7287;
+    }
+
+    .nav-button:hover {
+        background-color: #f8f7fa;
+    }
+
+    .cards-container {
+        display: flex;
+        overflow-x: hidden;
+        /* Cambiado de auto a hidden */
+        gap: 15px;
+        padding: 10px 0;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .cards-container::-webkit-scrollbar {
+        display: none;
+        /* Para Chrome/Safari */
+    }
+
+    .carousel-event-item {
+        flex: 0 0 calc(25% - 12px);
+        min-width: 250px;
+        transition: transform 0.2s ease;
+        position: relative;
+        margin-right: 0;
+        /* Asegurarse de que no haya márgenes adicionales */
+        height: 260px !important;
+    }
+
+    .carousel-event-item:hover {
+        transform: translateY(-8px);
+    }
+
+    /* Asegúrate de que el estilo sea compatible con los elementos existentes */
+    @media (max-width: 992px) {
+        .carousel-event-item {
+            flex: 0 0 calc(33.33% - 11px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .carousel-event-item {
+            flex: 0 0 calc(50% - 8px);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .carousel-event-item {
+            flex: 0 0 calc(100% - 16px);
+            min-width: calc(100% - 32px);
+        }
+
+        .events-carousel-container {
+            padding: 0 16px;
+        }
+    }
+
+    /* Estilos para el carrusel de eventos online */
+    .events-online-container {
+        padding: 0 20px;
+        position: relative;
+    }
+
+    .events-online-container .events-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* También debemos asegurarnos de que los estilos genéricos se apliquen al nuevo contenedor */
+    .events-online-container .cards-container {
+        display: flex;
+        overflow-x: hidden;
+        gap: 16px;
+        padding: 10px 0;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .events-online-container .cards-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Media queries específicos para el carrusel de eventos online */
+    @media (max-width: 576px) {
+        .events-online-container {
+            padding: 0 16px;
+        }
+    }
+
+    /* Contenedor principal con el mismo padding que los carruseles */
+    .events-recommendation-container {
+        padding: 0 20px;
+        margin: 40px auto;
+        position: relative;
+        max-width: 1200px;
+    }
+
+    /* Estilo del encabezado que mantiene la consistencia con otros encabezados */
+    .events-recommendation-container .events-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* Botones de navegación con el mismo estilo que el carrusel */
+    .events-recommendation-container .carousel-navigation {
+        display: flex;
+        gap: 8px;
+    }
+
+    .events-recommendation-container .nav-button {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid #dbdae3;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #6f7287;
+    }
+
+    .events-recommendation-container .nav-button:hover {
+        background-color: #f8f7fa;
+    }
+
+    /* Contenedor de las tarjetas con el mismo estilo que el carrusel */
+    .events-recommendation-container .cards-container {
+        display: flex;
+        overflow-x: hidden;
+        gap: 16px;
+        padding: 10px 0;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .events-recommendation-container .cards-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Estilos responsivos, manteniendo consistencia con otros contenedores */
+    @media (max-width: 576px) {
+        .events-recommendation-container {
+            padding: 0 16px;
+        }
+    }
+
+
+    .product__all-price .original-price,
+    .original-price {
+        text-decoration: line-through;
+        color: #888;
+        /* O cualquier color que desees para el precio tachado */
+        margin-right: 10px;
+        font-size: 16px !important;
+    }
+
+    .product__all-price .discounted-price,
+    .discounted-price {
+        color: #50a72c;
+        /* Puedes cambiar el color para destacar el precio con descuento */
+        font-weight: bold;
+        font-size: 16px !important;
+    }
+
+    .main-slider-three #main-slider-pagination {
+        bottom: 50px;
+        left: 78px;
+        max-width: 300px !important;
+        width: 100%;
+        padding: 0;
+    }
+
+    /* Estilo del contenedor del botón */
+    .hot-products__icon-boxes {
+        position: absolute;
+        display: flex;
+        top: 10px;
+        right: 10px;
+    }
+
+    /* Estilo del botón con el ícono */
+    .hot-product-three__icon-boxes button,
+    .hot-products__icon-boxes button {
+        position: absolute;
+        /* Cambia la posición a absoluta para colocar el botón dentro del contenedor */
+        top: 10px;
+        /* Ajusta la distancia desde la parte superior */
+        right: 10px;
+        /* Ajusta la distancia desde la parte derecha */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 40px;
+        background-color: #f3f3ed;
+        border-radius: 50%;
+        border: 0px;
+        font-size: 14px;
+        color: #37542b;
+        transition: all 200ms linear;
+        transition-delay: 0.1s;
+        cursor: pointer;
+    }
+
+
+    .section-title {
+        position: relative;
+        display: block;
+        margin-top: 55px !important;
+        margin-bottom: 12px;
+    }
+
+
+    /* Efecto hover */
+    .hot-product-three__icon-boxes button:hover,
+    .hot-products__icon-boxes button:hover {
+        background-color: var(--ogenix-base);
+        color: white;
+    }
+
+    .hot-product-three__icon-boxes button:hover i,
+    .hot-products__icon-boxes button:hover i {
+        transform: scale(1.1);
+    }
+
+    .main-slider-three__bg-shape-1 {
+        display: none;
+        visibility: hidden;
+    }
+
+    .image-layer-three {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border-radius: var(--ogenix-bdr-radius);
+        z-index: 1;
+        transition: none;
+        /* Desactiva todas las transiciones */
+        width: 100%;
+        height: 100%;
+    }
+
+    .main-slider-three__right .swiper-slide-active .image-layer-three {
+        transition: none;
+        /* Asegura que tampoco se active aquí */
+    }
+
+    .image-layer-three img {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--ogenix-bdr-radius);
+        object-fit: cover;
+
+    }
+
+    .section-title__tagline {
+        font-size: 30px;
+        color: #ff6347;
+    }
+
+    /* Estilo para el calendario de la sección de eventos */
+    .events-calendar-container {
+        margin-top: 50px;
+        padding: 0 20px 40px;
+    }
+
+    #calendar {
+        max-width: 1200px;
+        height: 580px !important;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos para eventos en el calendario */
+    .fc-event {
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 0.85em;
+    }
+
+    .fc-day-today {
+        background-color: rgba(80, 167, 44, 0.1) !important;
+    }
+
+    .fc-button-primary {
+        background-color: #50a72c !important;
+        border-color: #50a72c !important;
+    }
+
+    .fc-button-primary:hover {
+        background-color: #408c23 !important;
+        border-color: #408c23 !important;
+    }
+
+    /* Para dispositivos móviles */
+    @media (max-width: 768px) {
+        .fc-header-toolbar {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .fc-toolbar-chunk {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .option {
+        padding: 10px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        background: white;
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+    }
+
+    .option:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .option.selected.focus {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .option:last-child {
+        border-bottom: none;
+    }
+
+    .department-selector {
+        display: inline;
+        position: relative;
+    }
+
+    .department-button {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0 0 0 5px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: inherit;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .department-button:hover {
+        color: #0056b3;
+    }
+
+    .dropdown-arrow {
+        border: solid #50a72c;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 2px;
+        transform: rotate(45deg);
+        transition: transform 0.2s;
+    }
+
+    .department-button.active .dropdown-arrow {
+        transform: rotate(-135deg);
+    }
+
+    .department-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: none;
+        max-height: 200px;
+        overflow-y: auto;
+        min-width: 150px;
+    }
+
+    .department-dropdown.show {
+        display: block;
+    }
+
+    .department-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .option {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        background: white;
+        color: #333;
+        font-size: 14px;
+    }
+
+    .option:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .option:last-child {
+        border-bottom: none;
+    }
+
+    .loading-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 300px;
+        text-align: center;
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 6px solid #f3f3f3;
+        border-top: 6px solid var(--ogenix-primary, #3498db);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loading-indicator p {
+        font-size: 16px;
+        color: #666;
+        margin-top: 10px;
+    }
+
+    .no-departamentos {
+        padding: 10px 12px;
+        color: #999;
+    }
+
+    .departamento-name {
+        text-decoration: none;
+        color: #50a72c;
+        font-size: 22px;
+        font-weight: 700;
+        transition: color 0.2s;
+        margin-right: 5px;
+    }
+
+    /* ==========================================
+   ESTILOS BÁSICOS PARA TARJETAS DE EVENTOS
+   ========================================== */
+
+    /* Contenedor principal de las tarjetas */
+    .event-item {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 220px;
+        /* Altura para escritorio */
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0 !important;
+        /* Borde obligatorio */
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background-color: #fff;
+        cursor: pointer;
+        /* Mejora la usabilidad */
+    }
+
+    /* Efecto hover para todas las tarjetas */
+    .event-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Sección de imagen (lado izquierdo) */
+    .event-image {
+        width: 40%;
+        height: 100%;
+        position: relative;
+        background-color: #ffffff;
+        flex-shrink: 0;
+    }
+
+    /* Etiqueta de estado del evento */
+    .event-status {
+        position: absolute;
+        bottom: 15px;
+        left: 20px !important;
+        background-color: rgb(212, 41, 41);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        z-index: 2;
+    }
+
+    /* Sección de detalles (lado derecho) */
+    .event-details {
+        width: 60%;
+        padding: 15px;
+        display: flex;
+        margin-bottom: 20px;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        background-color: #ffffff;
+        /* border-left: 1px solid #f0f0f0; */
+    }
+
+    /* Título del evento */
+    .event-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Contenedor para información del evento */
+    .event-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    /* Estilos comunes para textos informativos */
+    .event-date,
+    .event-location,
+    .event-remaining {
+        font-size: 13px;
+        color: #555;
+        font-weight: 500;
+        white-space: normal;
+        /* Permite que el texto se ajuste */
+        word-break: break-word;
+        /* Evita desbordamiento */
+    }
+
+    /* Estilo especial para el precio */
+    .event-price {
+        font-size: 13px;
+        color: #327516;
+        font-weight: 700;
+    }
+
+    /* ==========================================
+   GRID DE EVENTOS (para sección principal)
+   ========================================== */
+
+    /* Contenedor grid para eventos */
+    .events-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    /* Tamaño de las tarjetas en el grid */
+    .events-grid .event-item {
+        flex: 0 0 calc(50% - 10px);
+        /* Dos tarjetas por fila en escritorio */
+    }
+
+    /* ==========================================
+   ESTILOS PARA CARRUSELES
+   ========================================== */
+
+    /* Contenedor de carrusel */
+    .cards-container {
+        display: flex;
+        overflow-x: hidden;
+        gap: 16px;
+        padding: 10px 0;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    /* Oculta la barra de desplazamiento */
+    .cards-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Tarjetas dentro de carruseles */
+    .carousel-event-item {
+        flex: 0 0 calc(50% - 10px) !important;
+        /* Dos tarjetas visibles */
+        min-width: calc(50% - 10px) !important;
+        max-width: calc(50% - 10px) !important;
+        margin-right: 0;
+        border: 1px solid #e0e0e0 !important;
+        /* Asegura borde en todos los lados */
+    }
+
+    /* ==========================================
+   MEDIA QUERIES PARA RESPONSIVE
+   ========================================== */
+
+    /* Tablets grandes */
+    @media (max-width: 1200px) {
+        .events-grid .event-item {
+            flex: 0 0 calc(50% - 10px);
+            /* Dos por fila */
+        }
+    }
+
+    /* Tablets */
+    @media (max-width: 992px) {
+        .events-grid .event-item {
+            flex: 0 0 100%;
+            /* Una por fila */
+        }
+
+        .carousel-event-item {
+            flex: 0 0 calc(50% - 10px) !important;
+            /* Dos tarjetas aún visibles */
+            min-width: calc(50% - 10px) !important;
+        }
+
+        .event-item {
+            height: 200px;
+            /* Altura reducida */
+        }
+    }
+
+    /* Tablets pequeñas y móviles grandes */
+    @media (max-width: 768px) {
+        .carousel-event-item {
+            flex: 0 0 calc(80% - 10px) !important;
+            /* Casi ancho completo */
+            min-width: calc(80% - 10px) !important;
+            max-width: calc(80% - 10px) !important;
+        }
+
+        .event-item {
+            height: 180px;
+            /* Altura más reducida */
+        }
+
+        .event-image img {
+            padding: 8px;
+            /* Padding reducido */
+        }
+
+        .event-status {
+            bottom: 12px;
+            left: 15px !important;
+            padding: 4px 8px;
+            font-size: 10px;
+        }
+
+        .event-title {
+            font-size: 14px;
+        }
+
+        .event-date,
+        .event-location,
+        .event-remaining,
+        .event-price {
+            font-size: 12px;
+        }
+    }
+
+    /* Móviles */
+    @media (max-width: 576px) {
+        .event-item {
+            height: auto;
+            /* Altura automática */
+            flex-direction: column;
+            /* Cambio a layout vertical */
+        }
+
+        .event-image {
+            width: 100%;
+            /* Ancho completo */
+            height: 140px;
+            /* Altura fija para la imagen */
+        }
+
+        .event-details {
+            width: 100%;
+            /* Ancho completo */
+            border-left: none;
+            /* Elimina borde izquierdo */
+            border-top: 1px solid #f0f0f0;
+            /* Añade borde superior */
+        }
+
+        .carousel-event-item {
+            flex: 0 0 calc(90% - 8px) !important;
+            /* Casi ancho completo */
+            min-width: calc(90% - 8px) !important;
+            max-width: calc(90% - 8px) !important;
+        }
+
+        .event-image img {
+            padding: 6px;
+            /* Padding mínimo */
+            border-radius: 12px !important;
+        }
+
+        .events-carousel-container,
+        .events-online-container {
+            padding: 0 10px;
+            /* Padding reducido */
+        }
+
+        .events-grid {
+            gap: 15px;
+            /* Gap reducido */
+        }
+    }
+
+    /* Móviles pequeños */
+    @media (max-width: 375px) {
+        .carousel-event-item {
+            flex: 0 0 100% !important;
+            /* Ancho completo */
+            min-width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .event-image {
+            height: 120px;
+            /* Altura reducida para la imagen */
+        }
+
+        .event-title {
+            font-size: 13px;
+        }
+
+        .event-date,
+        .event-location,
+        .event-remaining,
+        .event-price {
+            font-size: 11px;
+        }
+    }
+
+
+    /* ==========================================
+   NUEVO ESTILO PARA TARJETAS DE EVENTOS
+   ========================================== */
+
+    /* Contenedor principal de las tarjetas */
+    .event-card {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 282px;
+        /* Más altas que las originales */
+        margin-bottom: 25px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    /* Efecto hover */
+    .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Sección de imagen (lado izquierdo) */
+    .event-card-image {
+        width: 40%;
+        height: 100%;
+        position: relative;
+        background-color: #ffffff;
+        flex-shrink: 0;
+    }
+
+    /* Estilo para las imágenes */
+    .event-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 20px;
+    }
+
+    /* Etiqueta de estado del evento */
+    .event-card-status {
+        position: absolute;
+        bottom: 20px;
+        left: 25px;
+        background-color: rgb(80 167 44);
+        color: white;
+        padding: 7px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 2;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Sección de detalles (lado derecho) */
+    .event-card-details {
+        width: 60%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        /* border-left: 1px solid #f0f0f0; */
+    }
+
+    /* Título del evento */
+    .event-card-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Contenedor para información */
+    .event-card-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Textos informativos */
+    .event-card-date,
+    .event-card-price,
+    .event-card-location,
+    .event-card-remaining {
+        font-size: 14px;
+        color: #555;
+        font-weight: 500;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    /* Estilo especial para el precio */
+    .event-card-price {
+        font-size: 14px;
+        color: #327516;
+        font-weight: 700;
+    }
+
+    /* ==========================================
+   GRID DE TARJETAS
+   ========================================== */
+
+    /* Contenedor grid para eventos */
+    .events-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        width: 100%;
+    }
+
+    /* Asegurar que las tarjetas no excedan el ancho */
+    .event-card {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .events-card-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+    }
+
+    /* Tamaño de las tarjetas en el grid */
+    .events-card-grid .event-card {
+        flex: 0 0 calc(50% - 10px);
+        /* Dos tarjetas por fila */
+    }
+
+    /* ==========================================
+   CARRUSEL DE TARJETAS
+   ========================================== */
+
+    /* Tarjetas dentro de carruseles */
+    .carousel-event-card {
+        flex: 0 0 calc(50% - 10px);
+        min-width: calc(50% - 10px);
+        max-width: calc(50% - 10px);
+        margin-right: 0;
+        border: 1px solid #e0e0e0;
+    }
+
+    /* ==========================================
+   MEDIA QUERIES PARA RESPONSIVE
+   ========================================== */
+
+    /* Tablets */
+    @media (max-width: 992px) {
+        .events-card-grid .event-card {
+            flex: 0 0 100%;
+            /* Una por fila en tablets */
+        }
+
+        .carousel-event-card {
+            flex: 0 0 calc(70% - 10px);
+            min-width: calc(70% - 10px);
+            max-width: calc(70% - 10px);
+        }
+    }
+
+    /* Móviles */
+    @media (max-width: 768px) {
+        .event-card {
+            height: 220px;
+            /* Altura reducida en móviles */
+        }
+
+        .event-card-title {
+            font-size: 16px;
+        }
+
+        .event-card-date,
+        .event-card-price,
+        .event-card-location,
+        .event-card-remaining {
+            font-size: 13px;
+        }
+
+        .carousel-event-card {
+            flex: 0 0 calc(90% - 10px);
+            min-width: calc(90% - 10px);
+            max-width: calc(90% - 10px);
+        }
+    }
+
+    /* Móviles pequeños */
+    @media (max-width: 576px) {
+        .event-card {
+            height: auto;
+            /* Altura automática */
+            flex-direction: column;
+            /* Cambio a layout vertical */
+        }
+
+        .event-card-image {
+            width: 100%;
+            /* Ancho completo */
+            height: 160px;
+            /* Altura fija para la imagen */
+        }
+
+        .event-card-details {
+            width: 100%;
+            /* Ancho completo */
+            border-left: none;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .carousel-event-card {
+            flex: 0 0 100%;
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+
+
+    /* ==========================================
+   NUEVAS CLASES PARA TARJETAS INDIVIDUALES
+   ========================================== */
+
+    /* Nueva clase para el contenedor de grid */
+    .main-events-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0 -10px;
+        /* Compensar el padding de las tarjetas */
+    }
+
+    /* Nueva clase para tarjetas individuales */
+    .main-event-card {
+        width: 47%;
+        margin: 0 1.5% 30px 1.5%;
+        height: 290px;
+        display: flex;
+        flex-direction: row;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .main-event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Sección de imagen */
+    .main-event-image {
+        width: 42%;
+        height: 100%;
+        position: relative;
+        background-color: #ffffff;
+        flex-shrink: 0;
+    }
+
+    .main-event-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 12px;
+        box-sizing: border-box;
+        border-radius: 18px;
+    }
+
+    /* Estado del evento */
+    .main-event-status {
+        position: absolute;
+        bottom: 20px;
+        left: 25px;
+        background-color: rgb(212, 41, 41);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 2;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Sección de detalles */
+    .main-event-details {
+        width: 58%;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #ffffff;
+    }
+
+    /* Título del evento */
+    .main-event-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Información del evento */
+    .main-event-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    /* Estilos de texto para información */
+    .main-event-date,
+    .main-event-price,
+    .main-event-location,
+    .main-event-remaining {
+        font-size: 12px;
+        color: #555;
+        font-weight: 500;
+        margin-bottom: 1px;
+        line-height: 1.4;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .main-event-price {
+        color: #327516;
+        font-weight: 700;
+    }
+
+    /* Media queries para estas nuevas clases */
+    @media (max-width: 992px) {
+        .main-event-card {
+            width: 100%;
+            margin: 0 0 25px 0;
+            height: 250px;
+        }
+
+        .main-event-image {
+            width: 38%;
+        }
+
+        .main-event-details {
+            width: 62%;
+        }
+
+        .main-event-title {
+            font-size: 17px;
+        }
+
+        .main-event-date,
+        .main-event-price,
+        .main-event-location,
+        .main-event-remaining {
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .main-event-card {
+            height: auto;
+            flex-direction: column;
+        }
+
+        .main-event-image {
+            width: 100%;
+            height: 170px;
+        }
+
+        .main-event-details {
+            width: 100%;
+            border-top: 1px solid #f0f0f0;
+        }
+    }
+
+
+    .nice-select .option {
+        color: #ffffff !important;
+        font-weight: 500;
+        line-height: 40px;
+        list-style: none;
+        min-height: 40px;
+        outline: none;
+        padding-left: 18px;
+        padding-right: 29px;
+        text-align: left;
+        cursor: pointer;
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+    }
+
+    .option {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        background: #2a491d !important;
+        color: #333;
+        font-size: 14px;
+    }
+
+
+    /* ==========================================
+   ESTILOS MEJORADOS PARA EL SELECTOR DE DEPARTAMENTO
+   ========================================== */
+
+    /* Contenedor principal del selector */
+    .shop-best-sellers.product__sidebar-single {
+        position: relative;
+        z-index: 1000;
+    }
+
+    /* Selector personalizado */
+    .nice-select {
+        background-color: #4a9e27;
+        border: 1px solid #4a9e27;
+        border-radius: 6px;
+        cursor: pointer;
+        display: block;
+        float: none;
+        font-size: 14px;
+        font-weight: 400;
+        height: 45px;
+        line-height: 43px;
+        outline: none;
+        padding-left: 18px;
+        padding-right: 30px;
+        position: relative;
+        text-align: left !important;
+        transition: all 0.2s ease-in-out;
+        user-select: none;
+        white-space: nowrap;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .nice-select:hover {
+        border-color: #224f0e;
+    }
+
+    .nice-select:active,
+    .nice-select.open {
+        border-color: #4a9e27;
+        box-shadow: 0 0 0 2px rgba(80, 167, 44, 0.2);
+    }
+
+    /* Flecha del selector */
+    .nice-select:after {
+        border-bottom: 2px solid #ffffff;
+        border-right: 2px solid #ffffff;
+        content: '';
+        display: block;
+        height: 5px;
+        margin-top: -4px;
+        pointer-events: none;
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform-origin: 66% 66%;
+        transform: rotate(45deg);
+        transition: all 0.15s ease-in-out;
+        width: 5px;
+    }
+
+    .nice-select.open:after {
+        transform: rotate(-135deg);
+    }
+
+    /* Texto actual seleccionado */
+    .nice-select .current {
+        color: #333;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* ==========================================
+   LISTA DESPLEGABLE CON ALTURA LIMITADA
+   ========================================== */
+
+    /* Contenedor de la lista con altura máxima y scroll */
+    .nice-select .list {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-top: 4px;
+        opacity: 0;
+        overflow-y: auto;
+        /* Scroll vertical cuando sea necesario */
+        padding: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        transform: scale(0.75);
+        transform-origin: 0 0;
+        transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+        z-index: 9999;
+        max-height: 200px;
+        /* Altura máxima importante */
+        min-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Lista visible cuando está abierta */
+    .nice-select.open .list {
+        opacity: 1;
+        pointer-events: auto;
+        transform: scale(1) translateY(0);
+    }
+
+    /* ==========================================
+   OPCIONES DE LA LISTA
+   ========================================== */
+
+    /* Estilo base de cada opción */
+    .nice-select .option {
+        background-color: #fff !important;
+        color: #333 !important;
+        cursor: pointer;
+        font-weight: 400 !important;
+        line-height: 40px !important;
+        list-style: none;
+        min-height: 40px !important;
+        outline: none;
+        padding: 0 18px !important;
+        text-align: left;
+        transition: all 0.2s;
+        border-bottom: 1px solid #f5f5f5;
+        font-size: 14px;
+    }
+
+    /* Última opción sin borde inferior */
+    .nice-select .option:last-child {
+        border-bottom: none;
+    }
+
+    /* Efecto hover en las opciones */
+    .nice-select .option:hover {
+        background-color: #1a3b0d !important;
+        color: #fff !important;
+    }
+
+    /* Opción seleccionada */
+    .nice-select .option.selected,
+    .nice-select .option.focus {
+        background-color: #1a3b0d !important;
+        color: #fff !important;
+        font-weight: 500 !important;
+    }
+
+    /* ==========================================
+   ESTILOS PARA MÓVILES
+   ========================================== */
+
+    /* Tablets y móviles grandes */
+    @media (max-width: 768px) {
+        .nice-select .list {
+            max-height: 180px;
+            /* Altura reducida en tablets */
+        }
+
+        .nice-select {
+            font-size: 16px;
+            /* Evita zoom en iOS */
+        }
+
+        .nice-select .option {
+            line-height: 44px !important;
+            min-height: 44px !important;
+            font-size: 16px;
+            /* Mejor legibilidad en móvil */
+        }
+    }
+
+    /* Móviles pequeños */
+    @media (max-width: 576px) {
+        .nice-select .list {
+            max-height: 150px;
+            /* Altura más reducida */
+            border-radius: 4px;
+        }
+
+        .nice-select {
+            height: 48px;
+            line-height: 46px;
+            font-size: 16px;
+        }
+
+        .nice-select .option {
+            line-height: 42px !important;
+            min-height: 42px !important;
+            padding: 0 16px !important;
+        }
+    }
+
+    /* Móviles muy pequeños */
+    @media (max-width: 375px) {
+        .nice-select .list {
+            max-height: 120px;
+            /* Altura muy reducida */
+        }
+
+        .nice-select .option {
+            line-height: 40px !important;
+            min-height: 40px !important;
+            font-size: 15px;
+        }
+    }
+
+    /* ==========================================
+   SCROLL PERSONALIZADO PARA LA LISTA
+   ========================================== */
+
+    /* Webkit scroll (Chrome, Safari) */
+    .nice-select .list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .nice-select .list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .nice-select .list::-webkit-scrollbar-thumb {
+        background: #50a72c;
+        border-radius: 3px;
+    }
+
+    .nice-select .list::-webkit-scrollbar-thumb:hover {
+        background: #408c23;
+    }
+
+    /* Firefox scroll */
+    .nice-select .list {
+        scrollbar-width: thin;
+        scrollbar-color: #50a72c #f1f1f1;
+    }
+
+    /* ==========================================
+   ESTADO DE CARGA Y ERRORES
+   ========================================== */
+
+    /* Indicador de carga */
+    .no-departamentos {
+        padding: 15px 18px !important;
+        color: #999 !important;
+        font-style: italic;
+        text-align: center;
+        background-color: #f9f9f9 !important;
+        border-bottom: none !important;
+    }
+
+    /* ==========================================
+   ASEGURAR QUE NO INTERFIERA CON OTROS ELEMENTOS
+   ========================================== */
+
+    /* Asegurar que el dropdown esté por encima de otros elementos */
+    .nice-select.open {
+        z-index: 9999;
+    }
+
+    /* Evitar que otros elementos interfieran */
+    .product__sidebar-single {
+        overflow: visible;
+    }
+
+    /* ==========================================
+   ANIMACIONES SUAVES
+   ========================================== */
+
+    /* Animación de entrada */
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .nice-select.open .list {
+        animation: slideDown 0.2s ease-out;
+    }
+
+    /* ==========================================
+   SOPORTE PARA MODO OSCURO (OPCIONAL)
+   ========================================== */
+
+    @media (prefers-color-scheme: dark) {
+        .nice-select {
+            background-color: #4a9e27;
+            border-color: #4a9e27;
+            color: #fff;
+        }
+
+        .nice-select .current {
+            color: #fff;
+        }
+
+        .nice-select .list {
+            background-color: #4a9e27;
+            border-color: #4a9e27;
+        }
+
+        .nice-select .option {
+            background-color: #4a9e27 !important;
+            color: #fff !important;
+            border-bottom-color: #4a9e27;
+        }
+
+        .nice-select .option:hover,
+        .nice-select .option.selected,
+        .nice-select .option.focus {
+            background-color: #1e460f !important;
+            color: #fff !important;
+        }
+    }
+
+    /* ==========================================
+   ESTILOS PARA PAGINACIÓN DE EVENTOS
+   ========================================== */
+
+    /* Contenedor principal de paginación */
+    .shop-page__pagination {
+        margin-top: 30px !important;
+        margin-bottom: 20px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .pagination-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Lista de paginación */
+    .pagination {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 5px;
+        align-items: center;
+    }
+
+    /* Elementos de página */
+    .page-item {
+        display: inline-block;
+    }
+
+    .page-item.disabled {
+        pointer-events: none;
+    }
+
+    /* Enlaces de página */
+    .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        height: 40px;
+        padding: 8px 12px;
+        margin: 0 2px;
+        color: #6c757d;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+    /* Hover en enlaces */
+    .page-link:hover {
+        color: #50a72c;
+        background-color: #e9ecef;
+        border-color: #50a72c;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+
+    /* Página activa */
+    .page-item.active .page-link {
+        color: #fff;
+        background-color: #50a72c;
+        border-color: #50a72c;
+        box-shadow: 0 2px 4px rgba(80, 167, 44, 0.3);
+    }
+
+    .page-item.active .page-link:hover {
+        color: #fff;
+        background-color: #408c23;
+        border-color: #408c23;
+        transform: none;
+    }
+
+    /* Enlaces deshabilitados */
+    .page-item.disabled .page-link {
+        color: #6c757d;
+        background-color: #fff;
+        border-color: #dee2e6;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .page-item.disabled .page-link:hover {
+        transform: none;
+        color: #6c757d;
+        background-color: #fff;
+        border-color: #dee2e6;
+    }
+
+    /* Iconos de navegación */
+    .page-link i {
+        font-size: 12px;
+    }
+
+    /* Puntos suspensivos */
+    .page-item.disabled .page-link {
+        border: none;
+        background: none;
+        color: #6c757d;
+    }
+
+    /* ==========================================
+   INFORMACIÓN DE RESULTADOS
+   ========================================== */
+
+    .product__showing-result {
+        margin-bottom: 20px;
+        padding: 10px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .product__showing-result p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* ==========================================
+   RESPONSIVE PARA PAGINACIÓN
+   ========================================== */
+
+    /* Tablets */
+    @media (max-width: 768px) {
+        .pagination {
+            gap: 3px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .page-link {
+            min-width: 35px;
+            height: 35px;
+            padding: 6px 10px;
+            font-size: 13px;
+            margin: 0 1px;
+        }
+
+        .shop-page__pagination {
+            margin-top: 20px;
+            padding: 0 10px;
+        }
+    }
+
+    /* Móviles */
+    @media (max-width: 576px) {
+        .pagination {
+            gap: 2px;
+        }
+
+        .page-link {
+            min-width: 32px;
+            height: 32px;
+            padding: 5px 8px;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* Ocultar algunos números en móviles muy pequeños */
+        .page-item:not(.active):not(:first-child):not(:last-child):not(.disabled) {
+            display: none;
+        }
+
+        .page-item.active,
+        .page-item:first-child,
+        .page-item:last-child,
+        .page-item.disabled {
+            display: inline-block;
+        }
+
+        .product__showing-result p {
+            font-size: 13px;
+            text-align: center;
+        }
+    }
+
+    /* Móviles muy pequeños */
+    @media (max-width: 375px) {
+        .page-link {
+            min-width: 28px;
+            height: 28px;
+            padding: 4px 6px;
+            font-size: 11px;
+        }
+
+        .pagination {
+            gap: 1px;
+        }
+    }
+
+    /* ==========================================
+   ANIMACIONES SUAVES
+   ========================================== */
+
+    /* Fade in para nueva página */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .events-card-grid .event-card {
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    /* Efecto de carga */
+    .loading-indicator {
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    /* ==========================================
+   ESTADOS ESPECIALES
+   ========================================== */
+
+    /* Paginación en estado de carga */
+    .pagination.loading {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    /* Resaltar página actual con mejor contraste */
+    .page-item.active .page-link {
+        box-shadow: 0 0 0 2px rgba(80, 167, 44, 0.2);
+    }
+
+    /* Mejorar accesibilidad */
+    .page-link:focus {
+        outline: 2px solid #50a72c;
+        outline-offset: 2px;
+    }
+
+    /* ==========================================
+   VARIANTE COMPACTA (OPCIONAL)
+   ========================================== */
+
+    .pagination.compact .page-link {
+        min-width: 30px;
+        height: 30px;
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+
+    .pagination.compact {
+        gap: 2px;
+    }

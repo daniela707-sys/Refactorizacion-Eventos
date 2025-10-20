@@ -1,0 +1,21 @@
+# Habilita la reescritura de URLs
+RewriteEngine On
+
+# Página de error personalizada
+ErrorDocument 404 /OGENIX/files/404.php
+
+# Opcional: Forzar HTTPS (si deseas redirigir todo el tráfico HTTP a HTTPS)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Opcional: Elimina el trailing slash de las URLs
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+# Opcional: Manejar redirecciones personalizadas
+# RewriteRule ^old-page\.html$ /new-page.html [R=301,L]
+
+# Opcional: Manejar URLs amigables para motores de búsqueda
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule . /MAPA/index.php [L]

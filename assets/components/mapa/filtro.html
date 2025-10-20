@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamentos y Municipios</title>
+    <script type="module" src="views/township.js"></script>
+</head>
+<body>
+    <h1>Departamentos y Municipios</h1>
+    
+    <select id="departmentSelect">
+        <option value="">Selecciona un departamento</option>
+    </select>
+    
+    <select id="townshipSelect" style="display:none;">
+        <option value="">Selecciona un municipio</option>
+    </select>
+
+    <button id="fetchButton" style="display:none;">Obtener Municipios</button>
+
+    <div id="loadingMessage" style="display:none;">Cargando municipios...</div>
+    <div id="errorMessage" style="color: red;"></div>
+</body>
+</html>

@@ -1,0 +1,211 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #d0d0d3d8;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.mobile-only{
+    display: none;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.map-container  {
+    width: 300rem;
+    max-width: 450px; /* Ajusta el tamaño según tus necesidades */
+    margin: 0 auto;
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.568));
+    padding: 10px;
+    position: relative; /* Para centrar la región seleccionada */
+    overflow: hidden; /* Para evitar que el contenido se desborde */
+
+}
+
+svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.15));
+}
+
+/* Estilo base para las regiones */
+.region {
+    fill: #4b9fdf;
+    stroke: #ffffff;
+    stroke-width: 2;
+    transition: transform 0.2s ease, filter 0.2s ease, fill 0.2s ease;
+    position: relative; /* Necesario para usar z-index */
+    z-index: 1; /* Nivel de profundidad inicial */
+    cursor: pointer;
+}
+
+/* Efecto al pasar el cursor */
+.region:hover {
+    transform: translateY(-7px); /* Realza la región hacia arriba */
+    z-index: 999; /* Se coloca por encima de todas las demás regiones */
+    fill: #5fcfeb; /* Color más fuerte al pasar el cursor */
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.5)); /* Mantén la sombra para el efecto de elevación */
+}
+
+
+.info-container {
+    width: 50%;
+    text-align: center;
+}
+
+#region-name {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: #333;
+}
+
+#region-info {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: #555;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    pointer-events: none; /* Evita que la etiqueta interfiera con el hover */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    white-space: nowrap; /* Evita que el texto se divida en líneas */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+
+.dashboard {
+    width: 100%; /* Ancho completo en pantallas más grandes */
+    max-width: 1200px; /* Máximo ancho del dashboard */
+    height: 500px; /* Altura fija del dashboard */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow-y: auto; /* Añade un scroll vertical si es necesario */
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.region-info {
+    display: block;
+}
+
+.data-field {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9fafc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.data-field strong {
+    color: #1d72b8;
+}
+
+/* Los datos extra después del segundo campo estarán en fila */
+.extra-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    height: 100%; /* Ocupa todo el espacio disponible */
+}
+
+.extra-info .data-field {
+    flex: 1;
+    min-width: 150px;
+    overflow: auto; /* Permite scroll si hay demasiado contenido en cada campo */
+    max-height: 100%; /* Limita la altura para que no crezca indefinidamente */
+}
+
+/* Media query para móviles */
+@media screen and (max-width: 768px) {
+    /* Cambiar a diseño en bloque (vertical) */
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Ajustar el encabezado */
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header .logo img {
+        width: 80px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Ocultar el menú desplegable en móviles y usar un botón para mostrarlo */
+    nav ul li ul {
+        position: static;
+    }
+
+    .map {
+        max-width: 100%; /* Asegurarse de que ocupe el 100% del ancho del móvil */
+        padding: 10px 0;
+    }
+
+    .map svg {
+        width: 100%; /* El SVG ocupará todo el ancho disponible */
+        height: auto; /* Mantener las proporciones del mapa */
+    }
+
+    .map-container, .dashboard {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .chart-container {
+        width: 100%;
+    }
+
+    /* Ajustar botón de inicio de sesión */
+    .login-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Botón de mapa para móviles */
+    #toggle-map {
+        display: block;
+        width: 100%;
+        background-color: #ff5722;
+        color: white;
+        border: none;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+}
