@@ -1,0 +1,15 @@
+# Archivos de configuración con credenciales
+assets/components/eventos/config/gmail_config.php
+assets/components/eventos/config/gmail_token.json
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+
+# Archivos temporales
+*.tmp
+*.log
