@@ -23,27 +23,27 @@ try {
 
     // Validar que el evento existe y está activo
     $queryEvento = "SELECT nombre, cupos_disponibles FROM eventos WHERE id_evento = $id_evento AND activo = 1";
-    $resultEvento = DB::Query($queryEvento);
+    $resultado_evento = DB::Query($queryEvento);
     
-    if (!$resultEvento || !($evento = $resultEvento->fetchAssoc())) {
+    if (!$resultado_evento || !($evento = $resultado_evento->fetchAssoc())) {
         throw new Exception('Evento no encontrado o inactivo');
     }
 
     // Verificar si ya está registrado
     $queryVerificar = "SELECT id_registro FROM registro_asistencia_evento WHERE id_evento = $id_evento AND id_usuario = $id_usuario";
-    $resultVerificar = DB::Query($queryVerificar);
+    $resultado_verificar = DB::Query($queryVerificar);
     
-    if ($resultVerificar && $resultVerificar->fetchAssoc()) {
+    if ($resultado_verificar && $resultado_verificar->fetchAssoc()) {
         throw new Exception('Ya estás registrado en este evento');
     }
 
     // Verificar cupos disponibles
     $queryRegistrados = "SELECT COUNT(*) as registrados FROM registro_asistencia_evento WHERE id_evento = $id_evento";
-    $resultRegistrados = DB::Query($queryRegistrados);
+    $resultado_registrados = DB::Query($queryRegistrados);
     $registrados = 0;
     
-    if ($resultRegistrados) {
-        $row = $resultRegistrados->fetchAssoc();
+    if ($resultado_registrados) {
+        $row = $resultado_registrados->fetchAssoc();
         $registrados = intval($row['registrados']);
     }
 
@@ -60,9 +60,9 @@ try {
         VALUES ($id_evento, $id_usuario, NOW(), '" . DB::PrepareString($comentario) . "', '" . DB::PrepareString($qr_code) . "')
     ";
     
-    $resultInsertar = DB::Query($queryInsertar);
+    $resultado_insertar = DB::Query($queryInsertar);
     
-    if (!$resultInsertar) {
+    if (!$resultado_insertar) {
         throw new Exception('Error al procesar el registro');
     }
 

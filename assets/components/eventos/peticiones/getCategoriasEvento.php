@@ -17,11 +17,11 @@ FROM categoria_evento
 ";
 
 // Ejecutar consulta
-$result = DB::Query($query);
+$resultado = DB::Query($query);
 $categoriasEvento = []; // Inicializar para evitar errores si no hay resultados
 
-if ($result) {
-    while ($row = $result->fetchAssoc()) {
+if ($resultado) {
+    while ($row = $resultado->fetchAssoc()) {
         $categoriasEvento[] = $row;
     }
 }

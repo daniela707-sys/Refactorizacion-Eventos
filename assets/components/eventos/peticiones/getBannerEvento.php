@@ -5,7 +5,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
 // Obtener los datos de la solicitud
-$data = json_decode(file_get_contents('php://input'), true);
+$dato = json_decode(file_get_contents('php://input'), true);
 
 // Consulta base con JOIN para traer el nombre del municipio
 $query = "

@@ -18,17 +18,17 @@ $categoria = isset($data['categoria']) ? $data['categoria'] : NULL;
 $buscar = isset($data['buscar']) ? $data['buscar'] : NULL;
 
 // ✅ NUEVO: Parámetro para controlar eventos pasados/futuros
-$mostrarEventosPasados = isset($data['eventos_pasados']) ? boolval($data['eventos_pasados']) : false;
+$mostrar_eventos_pasados = isset($data['eventos_pasados']) ? boolval($data['eventos_pasados']) : false;
 
 // Verificar que el campo de ordenamiento sea seguro
-$ordenPermitidos = ['fecha_inicio', 'nombre', 'precio_entrada', 'cupos_disponibles', 'fecha_fin'];
-if (!in_array($orden, $ordenPermitidos)) {
+$orden_permitidos = ['fecha_inicio', 'nombre', 'precio_entrada', 'cupos_disponibles', 'fecha_fin'];
+if (!in_array($orden, $orden_permitidos)) {
     $orden = 'fecha_inicio'; // Valor por defecto si no es válido
 }
 
 // Verificar dirección
-$direccionPermitida = ['ASC', 'DESC'];
-if (!in_array($direccion, $direccionPermitida)) {
+$direccion_permitida = ['ASC', 'DESC'];
+if (!in_array($direccion, $direccion_permitida)) {
     $direccion = 'ASC'; // Valor por defecto
 }
 
@@ -44,7 +44,7 @@ LEFT JOIN registro_asistencia_evento ON eventos.id_evento = registro_asistencia_
 WHERE 1=1";
 
 // ✅ NUEVO: Filtro de fechas - CLAVE PARA LA OPTIMIZACIÓN
-if ($mostrarEventosPasados) {
+if ($mostrar_eventos_pasados) {
     // Mostrar solo eventos que YA terminaron
     $query .= " AND (
         CASE 
@@ -110,7 +110,7 @@ LEFT JOIN municipio ON eventos.municipio = municipio.idmuni
 WHERE 1=1";
 
 // Aplicar el mismo filtro de fechas para el conteo
-if ($mostrarEventosPasados) {
+if ($mostrar_eventos_pasados) {
     $queryTotal .= " AND (
         CASE 
             WHEN eventos.fecha_fin IS NOT NULL AND eventos.fecha_fin != eventos.fecha_inicio 
@@ -141,22 +141,22 @@ if ($buscar !== NULL) {
     $queryTotal .= " AND (eventos.nombre LIKE '%" . $buscar . "%' OR eventos.descripcion LIKE '%" . $buscar . "%')";
 }
 
-$resultTotal = DB::Query($queryTotal);
+$resultado_total = DB::Query($queryTotal);
 $total = 0;
-if ($resultTotal && $rowTotal = $resultTotal->fetchAssoc()) {
+if ($resultado_total && $rowTotal = $resultado_total->fetchAssoc()) {
     $total = $rowTotal['total'];
 }
 
 // ✅ CONSULTA ADICIONAL: Contar eventos del tipo contrario para mostrar información útil
 $queryContrario = str_replace(
-    $mostrarEventosPasados ? "< NOW()" : ">= NOW()",
-    $mostrarEventosPasados ? ">= NOW()" : "< NOW()",
+    $mostrar_eventos_pasados ? "< NOW()" : ">= NOW()",
+    $mostrar_eventos_pasados ? ">= NOW()" : "< NOW()",
     $queryTotal
 );
 
-$resultContrario = DB::Query($queryContrario);
+$resultado_Contrario = DB::Query($queryContrario);
 $totalContrario = 0;
-if ($resultContrario && $rowContrario = $resultContrario->fetchAssoc()) {
+if ($resultado_Contrario && $rowContrario = $resultado_Contrario->fetchAssoc()) {
     $totalContrario = $rowContrario['total'];
 }
 
@@ -166,12 +166,12 @@ echo json_encode([
     'total' => $total,
     'eventos' => $eventos,
     'total_contrario' => $totalContrario, // Para saber si hay eventos del otro tipo
-    'eventos_pasados' => $mostrarEventosPasados,
+    'eventos_pasados' => $mostrar_eventos_pasados,
     'debug' => [
         'query' => $query,
         'countQuery' => $queryTotal,
         'categoria' => $categoria,
-        'mostrar_pasados' => $mostrarEventosPasados
+        'mostrar_pasados' => $mostrar_eventos_pasados
     ]
 ]);
 ?>

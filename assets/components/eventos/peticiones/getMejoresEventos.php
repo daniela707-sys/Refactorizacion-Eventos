@@ -108,10 +108,10 @@ if (!$eventos_pasados) {
     )";
 }
 
-$resultTotal = DB::Query($queryTotal);
+$resultado_total = DB::Query($queryTotal);
 $total = 0;
 
-if ($resultTotal && $rowTotal = $resultTotal->fetchAssoc()) {
+if ($resultado_total && $rowTotal = $resultado_total->fetchAssoc()) {
     $total = $rowTotal['total'];
 }
 

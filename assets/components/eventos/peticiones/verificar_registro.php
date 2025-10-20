@@ -9,7 +9,7 @@ try {
     if (!isset($_SESSION['user_id']) || !isset($_SESSION['auth']) || !$_SESSION['auth']) {
         echo json_encode([
             'success' => true,
-            'yaRegistrado' => false,
+            'ya_registrado' => false,
             'message' => 'Usuario no autenticado'
         ]);
         exit;
@@ -21,7 +21,7 @@ try {
     if (!isset($data['id_evento']) || empty($data['id_evento'])) {
         echo json_encode([
             'success' => true,
-            'yaRegistrado' => false,
+            'ya_registrado' => false,
             'message' => 'ID evento requerido'
         ]);
         exit;
@@ -43,18 +43,18 @@ try {
     ";
     
     $result = DB::Query($query);
-    $yaRegistrado = false;
-    $datosRegistro = null;
+    $ya_registrado = false;
+    $datos_registro = null;
 
     if ($result && ($registro = $result->fetchAssoc())) {
-        $yaRegistrado = true;
-        $datosRegistro = $registro;
+        $ya_registrado = true;
+        $datos_registro = $registro;
     }
 
     echo json_encode([
         'success' => true,
-        'yaRegistrado' => $yaRegistrado,
-        'datos' => $datosRegistro,
+        'ya_registrado' => $ya_registrado,
+        'datos' => $datos_registro,
         'debug' => [
             'query' => $query,
             'id_evento' => $id_evento,
@@ -65,7 +65,7 @@ try {
 } catch (Exception $e) {
     echo json_encode([
         'success' => false,
-        'yaRegistrado' => false,
+        'ya_registrado' => false,
         'message' => $e->getMessage(),
         'debug' => [
             'error' => $e->getMessage()

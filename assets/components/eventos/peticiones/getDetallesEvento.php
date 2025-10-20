@@ -5,26 +5,26 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
 // Obtener los datos de la solicitud
-$data = json_decode(file_get_contents('php://input'), true);
+$dato = json_decode(file_get_contents('php://input'), true);
 
 // Preparar parámetros
-$departamento = isset($data['departamento']) && !empty($data['departamento']) ? $data['departamento'] : NULL;
-$limite = isset($data['limite']) ? intval($data['limite']) : 8;
-$pagina = isset($data['pagina']) ? intval($data['pagina']) : 0;
-$orden = isset($data['orden']) ? $data['orden'] : 'fecha_inicio';
-$direccion = isset($data['direccion']) ? $data['direccion'] : 'ASC';
-$estado = isset($data['estado']) ? $data['estado'] : 'activo';
-$id_evento = isset($data['id_evento']) ? intval($data['id_evento']) : null;
+$departamento = isset($dato['departamento']) && !empty($dato['departamento']) ? $dato['departamento'] : NULL;
+$limite = isset($dato['limite']) ? intval($dato['limite']) : 8;
+$pagina = isset($dato['pagina']) ? intval($dato['pagina']) : 0;
+$orden = isset($dato['orden']) ? $dato['orden'] : 'fecha_inicio';
+$direccion = isset($dato['direccion']) ? $dato['direccion'] : 'ASC';
+$estado = isset($dato['estado']) ? $dato['estado'] : 'activo';
+$id_evento = isset($dato['id_evento']) ? intval($dato['id_evento']) : null;
 
 // Verificar que el campo de ordenamiento sea seguro
-$ordenPermitidos = ['fecha_inicio', 'nombre', 'precio_entrada', 'cupos_disponibles'];
-if (!in_array($orden, $ordenPermitidos)) {
+$orden_permitidos = ['fecha_inicio', 'nombre', 'precio_entrada', 'cupos_disponibles'];
+if (!in_array($orden, $orden_permitidos)) {
     $orden = 'fecha_inicio';
 }
 
 // Verificar dirección
-$direccionPermitida = ['ASC', 'DESC'];
-if (!in_array($direccion, $direccionPermitida)) {
+$direccion_permitida = ['ASC', 'DESC'];
+if (!in_array($direccion, $direccion_permitida)) {
     $direccion = 'ASC';
 }
 
@@ -73,7 +73,7 @@ if ($result) {
             $tiendas = array();
             
             // EMPRENDEDORES: Consulta con tabla 'tienda' y campos correctos
-            $queryEmprendedores = "
+            $query_emprendedores = "
             SELECT 
                 et.*,
                 t.nombre AS tienda_nombre,
@@ -91,12 +91,12 @@ if ($result) {
             ORDER BY 
                 t.nombre ASC";
                 
-            $debug_info['consulta_emprendedores'] = $queryEmprendedores;
-            $resultEmprendedores = DB::Query($queryEmprendedores);
+            $debug_info['consulta_emprendedores'] = $query_emprendedores;
+            $resultado_emprendedores = DB::Query($query_emprendedores);
             
-            if ($resultEmprendedores) {
-                while ($emprendedorRow = $resultEmprendedores->fetchAssoc()) {
-                    $tiendas[] = $emprendedorRow;
+            if ($resultado_emprendedores) {
+                while ($emprendedor_row = $resultado_emprendedores->fetchAssoc()) {
+                    $tiendas[] = $emprendedor_row;
                 }
                 $debug_info['emprendedores_exitoso'] = true;
                 $debug_info['total_emprendedores'] = count($tiendas);
@@ -106,7 +106,7 @@ if ($result) {
             }
             
             // TIENDAS EXTERNAS: Consulta con tabla 'tiendas_externas' (sin telefono)
-            $queryExternas = "
+            $query_externas = "
             SELECT 
                 et.*,
                 te.nombre AS tienda_nombre,
@@ -124,11 +124,11 @@ if ($result) {
             ORDER BY 
                 te.nombre ASC";
                 
-            $debug_info['consulta_externas'] = $queryExternas;
-            $resultExternas = DB::Query($queryExternas);
+            $debug_info['consulta_externas'] = $query_externas;
+            $resultados_externos = DB::Query($query_externas);
             
-            if ($resultExternas) {
-                while ($externaRow = $resultExternas->fetchAssoc()) {
+            if ($resultados_externos) {
+                while ($externaRow = $resultados_externos->fetchAssoc()) {
                     $tiendas[] = $externaRow;
                 }
                 $debug_info['externas_exitoso'] = true;
@@ -149,22 +149,22 @@ if ($result) {
 }
 
 // Consulta para el total de registros
-$queryTotal = "
+$query_total = "
 SELECT COUNT(DISTINCT eventos.id_evento) as total 
 FROM eventos
 LEFT JOIN municipio ON eventos.municipio = municipio.idmuni
 WHERE 1=1";
 
 if ($departamento !== NULL) {
-    $queryTotal .= " AND eventos.departamento = '" . $departamento . "'";
+    $query_total .= " AND eventos.departamento = '" . $departamento . "'";
 }
 if ($estado !== NULL) {
-    $queryTotal .= " AND eventos.estado = '" . $estado . "'";
+    $query_total .= " AND eventos.estado = '" . $estado . "'";
 }
 
-$resultTotal = DB::Query($queryTotal);
+$resultado_total = DB::Query($query_total);
 $total = 0;
-if ($resultTotal && $rowTotal = $resultTotal->fetchAssoc()) {
+if ($resultado_total && $rowTotal = $resultado_total->fetchAssoc()) {
     $total = $rowTotal['total'];
 }
 

@@ -72,14 +72,14 @@ if (!$eventos_pasados) {
 $query .= " GROUP BY eventos.id_evento";
 
 // Verificar que el campo de ordenamiento sea seguro
-$ordenPermitidos = ['fecha_inicio', 'nombre', 'precio_entrada', 'cupos_disponibles', 'contador_visitas'];
-if (!in_array($orden, $ordenPermitidos)) {
+$orden_permitidos = ['fecha_inicio', 'nombre', 'precio_entrada', 'cupos_disponibles', 'contador_visitas'];
+if (!in_array($orden, $orden_permitidos)) {
     $orden = 'fecha_inicio'; // Valor por defecto si no es válido
 }
 
 // Verificar dirección
-$direccionPermitida = ['ASC', 'DESC'];
-if (!in_array($direccion, $direccionPermitida)) {
+$direccion_permitida = ['ASC', 'DESC'];
+if (!in_array($direccion, $direccion_permitida)) {
     $direccion = 'ASC'; // Valor por defecto
 }
 
@@ -130,11 +130,11 @@ if (!$eventos_pasados) {
     )";
 }
 
-$resultTotal = DB::Query($queryTotal);
+$resultado_total = DB::Query($queryTotal);
 $total = 0;
 
-if ($resultTotal && $rowTotal = $resultTotal->fetchAssoc()) {
-    $total = $rowTotal['total'];
+if ($resultado_total && $row_total = $resultado_total->fetchAssoc()) {
+    $total = $row_total['total'];
 }
 
 // Devolver resultados
