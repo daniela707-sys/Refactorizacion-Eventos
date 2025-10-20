@@ -87,7 +87,8 @@
     </div>
 
 
-    <script src='assets/js/details_evento.js'></script>
+    <script src='assets/js/eventos/detalles_evento.js'></script>
+    <script src='assets/js/eventos/registro_evento.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
     <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
