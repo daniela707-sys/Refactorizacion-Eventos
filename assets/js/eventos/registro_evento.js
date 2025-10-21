@@ -1,7 +1,7 @@
 // registro_evento.js - Conecta el template con la lógica de negocio
 class RegistroEventoManager {
     constructor() {
-        this.API_URL = 'assets/components/eventos/peticiones/registrar_evento.php';
+        this.API_URL = 'eventos/peticiones/registrar_evento.php';
         this.eventoId = this.getEventoIdFromURL();
         this.init();
     }

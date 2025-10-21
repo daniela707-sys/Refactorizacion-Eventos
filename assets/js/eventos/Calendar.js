@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     end: evento.fecha_fin || evento.fecha_inicio,
                                     backgroundColor: backgroundColor,
                                     borderColor: backgroundColor,
-                                    url: `detalles_evento.php?id=${evento.id_evento}`,
+                                    url: `assets/components/detalles_evento_handler.php?id=${evento.id_evento}`,
                                     extendedProps: {
                                         location: `${evento.nombre_municipio}, ${evento.departamento}`,
                                         price: evento.es_gratuito ? 'Gratuito' : `$${Number(evento.precio_entrada).toLocaleString('es-CO')}`,

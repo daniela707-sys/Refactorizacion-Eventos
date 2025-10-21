@@ -1,4 +1,3 @@
-
     // ✅ VARIABLES GLOBALES (INICIO DEL SCRIPT)
     let departamentoToken = '';
     let departamentoFiltro = '';
@@ -461,7 +460,7 @@
 
                             eventItem.addEventListener('click', () => {
                                 incrementarVisitas(evento.id_evento);
-                                window.location.href = `assets\components\views\detalles_evento.php?id=${evento.id_evento}`;
+                                window.location.href = `assets/components/detalles_evento_handler.php?id=${evento.id_evento}`;
                             });
 
                             eventsGrid.appendChild(eventItem);
@@ -928,7 +927,7 @@
 
                             eventItem.addEventListener('click', function() {
                                 incrementarVisitas(evento.id_evento);
-                                window.location.href = `assets\components\views\detalles_evento.php?id=${evento.id_evento}`;
+                                window.location.href = `assets/components/detalles_evento_handler.php?id=${evento.id_evento}`;
                             });
 
                             cardsContainer.appendChild(eventItem);
@@ -947,8 +946,12 @@
 
         // ✅ SIMPLIFICADA: cargarEventosOnline - ya no filtra frontend
         function cargarEventosOnline() {
+            console.log('🔄 Iniciando cargarEventosOnline');
             const cardsContainer = document.getElementById('events-online-carousel');
-            if (!cardsContainer) return;
+            if (!cardsContainer) {
+                console.error('❌ No se encontró el contenedor events-online-carousel');
+                return;
+            }
 
             cardsContainer.innerHTML = '<div class="loading-indicator">Cargando eventos...</div>';
 
@@ -972,8 +975,13 @@
                     cardsContainer.innerHTML = '';
 
                     if (data.success && data.eventos && data.eventos.length > 0) {
-                        data.eventos.forEach(evento => {
+                        data.eventos.forEach((evento, index) => {
+                            console.log(`🔄 Procesando evento ${index + 1}:`, evento.nombre);
                             const eventItem = document.createElement('div');
+                            if (!eventItem || !eventItem.classList) {
+                                console.error('❌ Error: eventItem o classList es null');
+                                return;
+                            }
                             eventItem.classList.add('event-item', 'carousel-event-item');
 
                             const fechaTexto = formatearFecha(evento.fecha_inicio, evento.fecha_fin);
@@ -996,7 +1004,7 @@
                                 <img src="${imagenUrl}" alt="${evento.nombre}">
                                 ${estadoEvento ? `<div class="event-status">${estadoEvento}</div>` : ''}
                             </div>
-                            <div class="event-detalles">
+                            <div class="event-details">
                                 <h3 class="event-title">${evento.nombre}</h3>
                                 <div class="event-date">${fechaTexto}</div>
                                 <div class="event-price">${formatearPrecio(evento.precio_entrada, evento.es_gratuito)}</div>
@@ -1007,7 +1015,7 @@
 
                             eventItem.addEventListener('click', function() {
                                 incrementarVisitas(evento.id_evento);
-                                window.location.href = `assets\components\views\detalles_evento.php?id=${evento.id_evento}`;
+                                window.location.href = `assets/components/detalles_evento_handler.php?id=${evento.id_evento}`;
                             });
 
                             cardsContainer.appendChild(eventItem);
@@ -1015,6 +1023,11 @@
 
                         createEventsOnlineCarousel();
                     } else {
+                        console.log('❌ No hay eventos online o falló la condición:', {
+                            success: data.success,
+                            eventos: data.eventos,
+                            length: data.eventos ? data.eventos.length : 'undefined'
+                        });
                         cardsContainer.innerHTML = '<div class="no-events">No se encontraron eventos online</div>';
                     }
                 })
@@ -1194,4 +1207,3 @@
             scrollToIndex(currentIndex);
         });
     }
-

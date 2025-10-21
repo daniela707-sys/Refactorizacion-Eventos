@@ -99,7 +99,7 @@ function loadBannerConFotosEvento(evento) {
 // =============================================================================
 
 function loadBannerDinamicoOriginal() {
-    fetch('../../../assets/components/eventos/peticiones/getBannerEvento.php', {
+    fetch('eventos/peticiones/getBannerEvento.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -300,13 +300,13 @@ const id = parametros.get("id");
 const mainContent = document.getElementById('main-content');
 
 function cargarDetallesEvento() {
-    fetch('../../../assets/components/eventos/peticiones/getDetallesEvento.php', {
+    fetch('eventos/peticiones/getDetallesEvento.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            id_evento: id
+            id_evento: parseInt(id)
         })
     })
     .then(response => {
@@ -316,7 +316,7 @@ function cargarDetallesEvento() {
         return response.json();
     })
     .then(eventData => {
-        const evento = eventData.eventos[0];
+        const evento = eventData.eventos.find(e => e.id_evento == id) || eventData.eventos[0];
 
         // PRIMERO: Configurar el banner con las fotos del evento
         loadBannerConFotosEvento(evento);
@@ -571,7 +571,7 @@ function cargarEventosRelacionados(eventoActual) {
 
     // Simular tiempo de carga y luego cargar eventos
     setTimeout(() => {
-        fetch('../../../assets/components/eventos/peticiones/getMejoresEventos.php', {
+        fetch('eventos/peticiones/getMejoresEventos.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -589,7 +589,7 @@ function cargarEventosRelacionados(eventoActual) {
 
             if (data.success && data.eventos && data.eventos.length > 0) {
                 // Filtrar el evento actual
-                const eventosRelacionados = data.eventos.filter(evento => evento.id_evento !== eventoActual.id_evento);
+                const eventosRelacionados = data.eventos.filter(evento => evento.id_evento != eventoActual.id_evento);
 
                 eventosRelacionados.forEach((evento, index) => {
                     // Crear la tarjeta con animación escalonada
@@ -628,7 +628,7 @@ function cargarEventosRelacionados(eventoActual) {
 
                         eventItem.addEventListener('click', function() {
                             incrementarVisitas(evento.id_evento);
-                            window.location.href = `details_evento.php?id=${evento.id_evento}`;
+                            window.location.href = `assets/components/detalles_evento_handler.php?id=${evento.id_evento}`;
                         });
 
                         cardsContainer.appendChild(eventItem);
@@ -758,7 +758,7 @@ function determinarEstadoEvento(evento) {
 }
 
 function incrementarVisitas(idEvento) {
-    fetch('../../../assets/components/eventos/peticiones/incremento_vistas.php', {
+    fetch('eventos/peticiones/incremento_vistas.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

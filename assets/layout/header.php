@@ -291,8 +291,8 @@ $NoticiasUrl = getNoticiasUrl();
     </div>
 </header>
 
-<?php require_once "assets/components/login.php"; ?>
-<?php require_once "assets/components/map.php"; ?>
+<?php require_once __DIR__ . "/../components/login.php"; ?>
+<?php require_once __DIR__ . "/../components/map.php"; ?>
 
 <div class="mobile-nav__wrapper">
     <div class="mobile-nav__overlay mobile-nav__toggler"></div>
@@ -301,7 +301,7 @@ $NoticiasUrl = getNoticiasUrl();
         <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
 
         <div class="logo-box">
-            <a href="index.html" aria-label="logo image"><img src="assets/images/logo/logo_blanco.png" width="104"
+            <a href="index.html" aria-label="logo image"><img src="assets/images/logo/logo1.png" width="104"
                     alt="" /></a>
         </div>
         <!-- /.logo-box -->

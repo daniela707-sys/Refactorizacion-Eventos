@@ -69,7 +69,7 @@ $footer_Privacidad = footer_getPrivacidadUrl();
 
 <!--Site Footer Start-->
 <footer class="site-footer">
-    <div class="site-footer__bg" style="background-image: url('assets/images/backgrounds/site-footer-bg-img.png')"></div>
+    <div class="site-footer__bg" style="background-image: url('../images/backgrounds/site-footer-bg-img.png')"></div>
     <!-- <div class="site-footer__ripped-paper"
         style="background-image: url(assets/images/shapes/site-footer-ripped-paper.png);"></div> -->
     <div class="container">
@@ -78,7 +78,7 @@ $footer_Privacidad = footer_getPrivacidadUrl();
                 <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
                     <div class="footer-widget__column footer-widget__about">
                         <div class="footer-widget__logo">
-                            <a href="/"><img src="assets/images/logo/logo.png" width="21%" height="73px"
+                            <a href="/"><img src="../images/logo/logo.png" width="21%" height="73px"
                                     alt=""></a>
                         </div>
                         <div class="footer-widget__about-text-box">

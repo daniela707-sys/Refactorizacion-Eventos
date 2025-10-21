@@ -15,7 +15,7 @@
                     </div> -->
                     <div class="subscribe-one__inner-content">
                         <div class="subscribe-one__shape-3 float-bob-x">
-                            <img src="assets/images/shapes/subscribe-one-shape-3.png" alt="">
+                            <img src="../images/shapes/subscribe-one-shape-3.png" alt="">
                         </div>
                         <div class="row">
                             <div class="col-xl-6">
@@ -32,7 +32,7 @@
                             <div class="col-xl-6">
                                 <div class="subscribe-one__right">
                                     <div class="subscribe-one__shape-6 float-bob-x">
-                                        <img src="assets/images/shapes/subscribe-one-shape-6.png"
+                                        <img src="../images/shapes/subscribe-one-shape-6.png"
                                             alt="">
                                     </div>
                                     <div class="subscribe-one__form-box">

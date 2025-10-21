@@ -1,10 +1,17 @@
 <?php
 @ini_set("display_errors", "1");
-require_once("../../../../include/dbcommon.php");
+error_reporting(E_ALL);
+try {
+    require_once("../../../../include/dbcommon.php");
+} catch (Exception $e) {
+    header("Content-Type: application/json");
+    echo json_encode(['success' => false, 'error' => 'Database connection failed']);
+    exit;
+}
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-// Obtener los datos de la solicitud
+// Obtener los datos de la solicitud (POST o GET)
 $dato = json_decode(file_get_contents('php://input'), true);
 
 // Preparar parámetros
@@ -14,7 +21,14 @@ $pagina = isset($dato['pagina']) ? intval($dato['pagina']) : 0;
 $orden = isset($dato['orden']) ? $dato['orden'] : 'fecha_inicio';
 $direccion = isset($dato['direccion']) ? $dato['direccion'] : 'ASC';
 $estado = isset($dato['estado']) ? $dato['estado'] : 'activo';
-$id_evento = isset($dato['id_evento']) ? intval($dato['id_evento']) : null;
+
+// Obtener ID del evento desde POST o GET
+$id_evento = null;
+if (isset($dato['id_evento'])) {
+    $id_evento = intval($dato['id_evento']);
+} elseif (isset($_GET['id'])) {
+    $id_evento = intval($_GET['id']);
+}
 
 // Verificar que el campo de ordenamiento sea seguro
 $orden_permitidos = ['fecha_inicio', 'nombre', 'precio_entrada', 'cupos_disponibles'];
@@ -62,87 +76,13 @@ $offset = $pagina * $limite;
 $query .= " ORDER BY eventos.`$orden` $direccion LIMIT $limite OFFSET $offset";
 
 // Ejecutar consulta
-$result = DB::Query($query);
+$result = $conn->query($query);
 $eventos = array();
-$debug_info = array();
 
 if ($result) {
-    while ($row = $result->fetchAssoc()) {
-        // Consultar las tiendas participantes SOLO si se solicita un evento específico
-        if ($id_evento !== null) {
-            $tiendas = array();
-            
-            // EMPRENDEDORES: Consulta con tabla 'tienda' y campos correctos
-            $query_emprendedores = "
-            SELECT 
-                et.*,
-                t.nombre AS tienda_nombre,
-                t.logo AS logo,
-                t.telefono AS tienda_contacto,
-                t.pagina_web AS tienda_website
-            FROM 
-                evento_tiendas et
-            LEFT JOIN 
-                tienda t ON et.tienda_id = t.id_negocio
-            WHERE 
-                et.evento_id = " . intval($id_evento) . "
-                AND et.estado = 'activo'
-                AND et.tipo_tienda = 'emprendedor'
-            ORDER BY 
-                t.nombre ASC";
-                
-            $debug_info['consulta_emprendedores'] = $query_emprendedores;
-            $resultado_emprendedores = DB::Query($query_emprendedores);
-            
-            if ($resultado_emprendedores) {
-                while ($emprendedor_row = $resultado_emprendedores->fetchAssoc()) {
-                    $tiendas[] = $emprendedor_row;
-                }
-                $debug_info['emprendedores_exitoso'] = true;
-                $debug_info['total_emprendedores'] = count($tiendas);
-            } else {
-                $debug_info['emprendedores_exitoso'] = false;
-                $debug_info['error_emprendedores'] = DB::LastError();
-            }
-            
-            // TIENDAS EXTERNAS: Consulta con tabla 'tiendas_externas' (sin telefono)
-            $query_externas = "
-            SELECT 
-                et.*,
-                te.nombre AS tienda_nombre,
-                te.logo AS logo,
-                '' AS tienda_contacto,
-                '' AS tienda_website
-            FROM 
-                evento_tiendas et
-            LEFT JOIN 
-                tiendas_externas te ON et.tienda_id = te.id_tiendas_externas
-            WHERE 
-                et.evento_id = " . intval($id_evento) . "
-                AND et.estado = 'activo'
-                AND et.tipo_tienda = 'externa'
-            ORDER BY 
-                te.nombre ASC";
-                
-            $debug_info['consulta_externas'] = $query_externas;
-            $resultados_externos = DB::Query($query_externas);
-            
-            if ($resultados_externos) {
-                while ($externaRow = $resultados_externos->fetchAssoc()) {
-                    $tiendas[] = $externaRow;
-                }
-                $debug_info['externas_exitoso'] = true;
-                $debug_info['total_externas'] = count($tiendas) - ($debug_info['total_emprendedores'] ?? 0);
-            } else {
-                $debug_info['externas_exitoso'] = false;
-                $debug_info['error_externas'] = DB::LastError();
-            }
-            
-            $debug_info['total_tiendas_final'] = count($tiendas);
-            $row['tiendas_participantes'] = $tiendas;
-        } else {
-            $row['tiendas_participantes'] = [];
-        }
+    while ($row = $result->fetch_assoc()) {
+        // Agregar tiendas participantes vacías por ahora (las tablas no existen)
+        $row['tiendas_participantes'] = [];
         
         $eventos[] = $row;
     }
@@ -162,80 +102,16 @@ if ($estado !== NULL) {
     $query_total .= " AND eventos.estado = '" . $estado . "'";
 }
 
-$resultado_total = DB::Query($query_total);
+$resultado_total = $conn->query($query_total);
 $total = 0;
-if ($resultado_total && $rowTotal = $resultado_total->fetchAssoc()) {
+if ($resultado_total && $rowTotal = $resultado_total->fetch_assoc()) {
     $total = $rowTotal['total'];
 }
 
-// Devolver resultados con debugging completo
+// Devolver resultados
 echo json_encode([
     'success' => true,
     'total' => $total,
-    'eventos' => $eventos,
-    'debug' => [
-        'query_principal' => $query,
-        'id_evento' => $id_evento,
-        'debug_tiendas' => $debug_info
-    ]
+    'eventos' => $eventos
 ]);
 ?>
-
-
-<?php
-/*
-@ini_set("display_errors", "1");
-require_once("../../../../include/dbcommon.php");
-header("Access-Control-Allow-Origin: *"); 
-header("Content-Type: application/json"); 
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-
-// Manejar solicitudes OPTIONS (CORS preflight)
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
-// Obtener el ID del evento
-$id_evento = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-if ($id_evento <= 0) {
-    echo json_encode([
-        'success' => false,
-        'mensaje' => 'ID de evento no válido'
-    ]);
-    exit;
-}
-
-// Consultar el evento
-$query = "SELECT * FROM eventos WHERE id_evento = 2";
-$params = [$id_evento];
-
-$result = DB::Query($query, $params);
-$evento = null;
-
-if ($result && ($row = $result->fetchAssoc())) {
-    // Formatear datos numéricos para JSON
-    $row['id_evento'] = intval($row['id_evento']);
-    $row['categoria'] = intval($row['categoria']);
-    $row['subcategoria'] = $row['subcategoria'] ? intval($row['subcategoria']) : null;
-    $row['aforo_maximo'] = intval($row['aforo_maximo']);
-    $row['contador_visitas'] = intval($row['contador_visitas']);
-    $row['precio_entrada'] = floatval($row['precio_entrada']);
-    $row['es_gratuito'] = $row['es_gratuito'] == '1';
-    $row['cupos_disponibles'] = intval($row['cupos_disponibles']);
-    
-    if ($row['calificacion'] !== null) {
-        $row['calificacion'] = floatval($row['calificacion']);
-    }
-    
-    $evento = $row;
-}
-
-// Devolver respuesta
-echo json_encode([
-    'success' => ($evento !== null),
-    'evento' => $evento
-]);
-*/

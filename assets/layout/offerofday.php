@@ -28,7 +28,23 @@
     }
 
     .close {
-        display: none;
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        z-index: 1000;
+        display: block;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
     }
 
     @media screen and (max-width: 765px) {
@@ -71,7 +87,7 @@
     showSpinner();
 
     let departamento = localStorage.getItem('departamento');
-    fetch('assets/components/publicidad/getpublicidad.php', {
+    fetch('publicidad/getpublicidad.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
