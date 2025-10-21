@@ -378,6 +378,6 @@ if ($id_evento <= 0) {
             document.querySelector('.loading').style.display = 'none';
         });
     </script>
-    <script src="../../assets/js/eventos/encuesta_satisfaccion_test.js"></script>
+    <script src="../../assets/js/eventos/encuesta_satisfaccion.js"></script>
 </body>
 </html>

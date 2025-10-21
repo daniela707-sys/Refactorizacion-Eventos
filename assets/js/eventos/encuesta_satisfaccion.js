@@ -1,8 +1,10 @@
-// Encuesta de Satisfacción - JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Cargar información del evento
+    // Ocultar loading al cargar
+    document.querySelector('.loading').style.display = 'none';
+    
+    // Cargar evento
     if (window.EVENTO_ID && window.EVENTO_ID > 0) {
-        fetch(`./eventos/peticiones/encuesta_satisfaccion_simple.php?action=obtener_evento&id=${window.EVENTO_ID}`)
+        fetch(`./eventos/peticiones/encuesta_satisfaccion.php?action=obtener_evento&id=${window.EVENTO_ID}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success && data.evento) {
@@ -13,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error al cargar evento:', error);
             });
     }
+    
     // Manejar las estrellas de calificación
     const ratingGroups = document.querySelectorAll('.rating-stars');
     
@@ -63,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Manejar formulario de búsqueda
+    // Formulario de búsqueda
     const formBusqueda = document.getElementById('form-buscar-registro');
     if (formBusqueda) {
         formBusqueda.addEventListener('submit', function(e) {
@@ -75,16 +78,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Mostrar loading
             document.querySelector('.loading').style.display = 'flex';
             
-            // Hacer petición AJAX
             const formData = new FormData();
             formData.append('action', 'buscar_registro');
             formData.append('id_evento', window.EVENTO_ID);
             formData.append('id_usuario_busqueda', documento);
             
-            fetch('./eventos/peticiones/encuesta_satisfaccion_simple.php', {
+            fetch('./eventos/peticiones/encuesta_satisfaccion.php', {
                 method: 'POST',
                 body: formData
             })
@@ -93,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('.loading').style.display = 'none';
                 
                 if (data.success) {
-                    // Mostrar formulario de encuesta
                     document.getElementById('paso-busqueda').style.display = 'none';
                     document.getElementById('paso-encuesta').style.display = 'block';
                     document.getElementById('info-registro').style.display = 'block';
@@ -113,13 +113,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Manejar formulario de encuesta
+    // Formulario de encuesta
     const formEncuesta = document.getElementById('form-encuesta');
     if (formEncuesta) {
         formEncuesta.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Validar que todas las calificaciones estén completas
             const requiredRatings = ['experiencia_general', 'calidad_ponentes', 'proceso_registro', 'recomendaria'];
             let valid = true;
             
@@ -133,15 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (valid) {
-                // Mostrar loading
                 document.querySelector('.loading').style.display = 'flex';
                 
-                // Preparar datos del formulario
                 const formData = new FormData(formEncuesta);
                 formData.append('action', 'registrar_encuesta');
                 
-                // Hacer petición AJAX
-                fetch('./eventos/peticiones/encuesta_satisfaccion_simple.php', {
+                fetch('./eventos/peticiones/encuesta_satisfaccion.php', {
                     method: 'POST',
                     body: formData
                 })
@@ -150,11 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.querySelector('.loading').style.display = 'none';
                     
                     if (data.success) {
-                        // Mostrar mensaje de éxito
                         document.getElementById('paso-encuesta').style.display = 'none';
                         document.getElementById('mensaje-exito').style.display = 'block';
                         
-                        // Redirigir después de unos segundos
                         setTimeout(() => {
                             window.location.href = '../../index.php';
                         }, 3000);
