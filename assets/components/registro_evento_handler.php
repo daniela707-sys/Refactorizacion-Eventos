@@ -1,4 +1,122 @@
 
+<?php
+require_once '../../include/dbcommon.php';
+require_once '../../config/config.php';
+
+// Get event ID from URL (handle both 'id' and 'evento_id' parameters)
+$evento_id = $_GET['id'] ?? $_GET['evento_id'] ?? $_POST['evento_id'] ?? null;
+
+// Process form submission
+if ($_POST && isset($_POST['submit_registration'])) {
+    $errors = [];
+    
+    // Validate required fields
+    if (empty($_POST['nombre'])) $errors[] = 'Nombre es requerido';
+    if (empty($_POST['email'])) $errors[] = 'Email es requerido';
+    if (empty($_POST['documento'])) $errors[] = 'Documento es requerido';
+    if (empty($_POST['tipo_documento'])) $errors[] = 'Tipo de documento es requerido';
+    if (empty($_POST['tipo_poblacion'])) $errors[] = 'Tipo de población es requerido';
+    if (empty($_POST['fecha_nacimiento'])) $errors[] = 'Fecha de nacimiento es requerida';
+    
+    // Validate email format
+    if (!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Email no válido';
+    }
+    
+    if (empty($errors)) {
+        try {
+            // Check for duplicate registration
+            $stmt = $conn->prepare("SELECT id_registro FROM registro_asistencia_evento WHERE id_evento = ? AND (email = ? OR id_usuario = ?)");
+            $stmt->bind_param('iss', $evento_id, $_POST['email'], $_POST['documento']);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            if ($result->num_rows > 0) {
+                echo "<script>alert('Ya existe un registro con este email o documento para este evento');</script>";
+            } else {
+                // Insert new registration
+                $stmt = $conn->prepare("
+                    INSERT INTO registro_asistencia_evento 
+                    (id_evento, id_usuario, nombre_completo, email, telefono, tipo_documento, tipo_poblacion, fecha_nacimiento, qr) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ");
+                
+                $qr_code = 'QR-' . $evento_id . '-' . time();
+                $stmt->bind_param('issssssss', 
+                    $evento_id,
+                    $_POST['documento'],
+                    $_POST['nombre'],
+                    $_POST['email'],
+                    $_POST['telefono'],
+                    $_POST['tipo_documento'],
+                    $_POST['tipo_poblacion'],
+                    $_POST['fecha_nacimiento'],
+                    $qr_code
+                );
+                
+                if ($stmt->execute()) {
+                    // Enviar correo de confirmación
+                    $to = $_POST['email'];
+                    $subject = 'Confirmación de Registro - ' . $evento_info['nombre'];
+                    $message = "
+                    <html>
+                    <head><title>Confirmación de Registro</title></head>
+                    <body>
+                        <h2>¡Registro Exitoso!</h2>
+                        <p>Hola <strong>" . $_POST['nombre'] . "</strong>,</p>
+                        <p>Tu registro para el evento <strong>" . $evento_info['nombre'] . "</strong> ha sido confirmado.</p>
+                        <h3>Detalles del Evento:</h3>
+                        <ul>
+                            <li><strong>Evento:</strong> " . $evento_info['nombre'] . "</li>
+                            <li><strong>Fecha:</strong> " . date('d/m/Y H:i', strtotime($evento_info['fecha_inicio'])) . "</li>
+                            <li><strong>Ubicación:</strong> " . ($evento_info['ubicacion'] ?? 'Por definir') . "</li>
+                            <li><strong>Código QR:</strong> $qr_code</li>
+                        </ul>
+                        <p>Presenta este código QR el día del evento.</p>
+                        <p>¡Te esperamos!</p>
+                    </body>
+                    </html>
+                    ";
+                    
+                    $headers = "MIME-Version: 1.0" . "\r\n";
+                    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                    $headers .= 'From: ' . MAIL_FROM_NAME . ' <' . MAIL_USERNAME . '>' . "\r\n";
+                    
+                    mail($to, $subject, $message, $headers);
+                    
+                    echo "<script>alert('¡Registro exitoso! Se ha enviado confirmación a tu correo.'); window.location.href = '../../index.php';</script>";
+                } else {
+                    echo "<script>alert('Error al registrar');</script>";
+                }
+            }
+        } catch (Exception $e) {
+            echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
+        }
+    } else {
+        echo "<script>alert('Errores: " . implode(', ', $errors) . "');</script>";
+    }
+}
+
+// Initialize variables
+$evento_info = null;
+$pageTitle = 'Registro de Evento';
+$tipos_documento = $GLOBALS['TIPOS_DOCUMENTO'];
+$tipos_poblacion = $GLOBALS['TIPOS_POBLACION'];
+
+// Fetch event data if ID is provided
+if ($evento_id && $conn) {
+    try {
+        // First try without estado filter to see if event exists
+        $stmt = $conn->prepare("SELECT * FROM eventos WHERE id_evento = ?");
+        $stmt->bind_param('i', $evento_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $evento_info = $result->fetch_assoc();
+    } catch (Exception $e) {
+        error_log("Database error: " . $e->getMessage());
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -590,7 +708,7 @@
                             <p>Complete sus datos para registrarse en el evento</p>
                         </div>
 
-                        <form id="formRegistro" onsubmit="return Register();" action="" class="needs-validation" novalidate>
+                        <form id="formRegistro" method="POST" action="" class="needs-validation" novalidate>
                             <input type="hidden" name="evento_id" value="<?php echo $evento_id; ?>">
 
                             <div class="row">
@@ -764,8 +882,8 @@
                 <i class="bi bi-calendar-x"></i>
                 <h2>Evento No Encontrado</h2>
                 <p>Lo sentimos, no pudimos encontrar el evento que está buscando. Verifique el enlace o seleccione un evento válido.</p>
-                <p><strong>ID solicitado:</strong> <?php echo $evento_id; ?></p>
-                <a href="eventos.php" class="btn-back">
+                <p><strong>ID solicitado:</strong> <?php echo htmlspecialchars($evento_id ?? 'No especificado'); ?></p>
+                <a href="../../index.php" class="btn-back">
                     <i class="bi bi-arrow-left"></i>Volver a Eventos
                 </a>
             </div>
@@ -778,7 +896,8 @@
     <!-- SweetAlert2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.32/sweetalert2.min.js"></script>
 
-    <script src="assets/js/eventos/registro_evento.js"></script>
+
+    <script src="../../assets/js/eventos/registro_evento.js?v=<?php echo time(); ?>"></script>
 </body>
 
 </html>

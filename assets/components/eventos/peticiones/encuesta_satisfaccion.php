@@ -1,7 +1,7 @@
 <?php
 // encuesta_satisfaccion_handler.php - Lógica de negocio para encuestas
-require_once("../../vendor/autoload.php");
-require_once("../../include/dbcommon.php");
+require_once("../../../include/dbcommon.php");
+require_once("../../../config/config.php");
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
@@ -41,7 +41,7 @@ class EncuestaSatisfaccionHandler {
                          e.ubicacion, e.fecha_inicio, e.fecha_fin
                   FROM registro_asistencia_evento ra
                   JOIN eventos e ON ra.id_evento = e.id_evento
-                  WHERE ra.id_evento = ? AND ra.id_usuario = ? AND ra.asistio = 1";
+                  WHERE ra.id_evento = ? AND ra.id_usuario = ?";
         
         $stmt = $this->conn->prepare($query);
         if (!$stmt) return null;
@@ -102,7 +102,8 @@ class EncuestaSatisfaccionHandler {
 
 // Procesar peticiones
 try {
-    if (!$conn || $conn->connect_error) {
+    // Usar la conexión global de dbcommon.php
+    if (!$conn) {
         throw new Exception("Error de conexión a la base de datos");
     }
     
@@ -115,13 +116,13 @@ try {
             $id_usuario = trim($_POST['id_usuario_busqueda'] ?? '');
             
             if ($id_evento <= 0 || empty($id_usuario)) {
-                throw new Exception("Parámetros inválidos");
+                throw new Exception("Parámetros inválidos: evento={$id_evento}, usuario={$id_usuario}");
             }
             
             $registro = $handler->verificarRegistroAsistencia($id_evento, $id_usuario);
             
             if (!$registro) {
-                throw new Exception("No se encontró registro de asistencia o no asistió al evento");
+                throw new Exception("No se encontró registro de asistencia para el documento {$id_usuario} en el evento {$id_evento}");
             }
             
             if ($handler->yaRespondioEncuesta($registro['id_registro'])) {
@@ -130,7 +131,12 @@ try {
             
             echo json_encode([
                 'success' => true,
-                'registro' => $registro
+                'registro' => $registro,
+                'debug' => [
+                    'id_evento' => $id_evento,
+                    'id_usuario' => $id_usuario,
+                    'id_registro' => $registro['id_registro']
+                ]
             ]);
             break;
             
@@ -193,7 +199,12 @@ try {
     http_response_code(400);
     echo json_encode([
         'success' => false,
-        'message' => $e->getMessage()
+        'message' => $e->getMessage(),
+        'debug' => [
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+            'trace' => DEBUG_MODE ? $e->getTraceAsString() : 'Debug mode disabled'
+        ]
     ]);
 }
 ?>

@@ -153,7 +153,7 @@ if ($id_evento <= 0) {
         }
 
         .loading {
-            display: none;
+            display: none !important;
         }
 
         @media (max-width: 768px) {
@@ -373,7 +373,11 @@ if ($id_evento <= 0) {
     <script>
         // Pasar evento_id desde PHP a JavaScript
         window.EVENTO_ID = <?php echo $id_evento; ?>;
+        // Ocultar loading inmediatamente
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.loading').style.display = 'none';
+        });
     </script>
-    <script src="assets/js/eventos/encuesta_satisfaccion.js"></script>
+    <script src="../../assets/js/eventos/encuesta_satisfaccion_test.js"></script>
 </body>
 </html>

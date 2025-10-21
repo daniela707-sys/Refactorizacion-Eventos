@@ -628,7 +628,7 @@ function cargarEventosRelacionados(eventoActual) {
 
                         eventItem.addEventListener('click', function() {
                             incrementarVisitas(evento.id_evento);
-                            window.location.href = `assets/components/detalles_evento_handler.php?id=${evento.id_evento}`;
+                            window.location.href = `${window.location.origin}/eventos-copia/assets/components/detalles_evento_handler.php?id=${evento.id_evento}`;
                         });
 
                         cardsContainer.appendChild(eventItem);
