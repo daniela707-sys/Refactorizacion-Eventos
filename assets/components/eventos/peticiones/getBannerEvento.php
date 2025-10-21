@@ -15,11 +15,11 @@ FROM banner_fotos
 WHERE 1=1 AND ubicacion='EVENTOS'";
 
 // Ejecutar consulta
-$result = DB::Query($query);
-$eventos = array();
+$result = $conn->query($query);
+$fotos = array();
 
 if ($result) {
-    while ($row = $result->fetchAssoc()) {
+    while ($row = $result->fetch_assoc()) {
         $fotos[] = $row;
     }
 }

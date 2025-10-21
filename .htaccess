@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Página de error personalizada
-ErrorDocument 404 /OGENIX/files/404.php
+ErrorDocument 404 /eventos-copia/404.php
 
 # Opcional: Forzar HTTPS (si deseas redirigir todo el tráfico HTTP a HTTPS)
 # RewriteCond %{HTTPS} off

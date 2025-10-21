@@ -66,6 +66,15 @@
     <div class="preloader__image"></div>
   </div>
   <!-- /.preloader -->
+  <script>
+    // Ocultar preloader después de 3 segundos máximo
+    setTimeout(function() {
+      const preloader = document.querySelector('.preloader');
+      if (preloader) {
+        preloader.style.display = 'none';
+      }
+    }, 3000);
+  </script>
   <?php
   $username = 'front@gmail.com'; // Reemplaza con tu nombre de usuario
   $password = 'aprendiz23'; // Reemplaza con tu contraseña
@@ -79,7 +88,7 @@
     <!--Subscribe header-->
     <?php require_once "assets/layout/header.php"; ?>
     <!--Subscribe contenido-->
-    <?php require_once "assets/components/index.php"; ?>
+    <?php require_once "assets/components/evento_handler.php"; ?>
     <!--Subscribe One Start-->
     <?php require_once "assets/layout/subscribe.php"; ?>
     <!--Subscribe One End-->

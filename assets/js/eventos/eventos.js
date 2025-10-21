@@ -227,7 +227,7 @@
     }
 
     function incrementarVisitas(idEvento) {
-        fetch('assets/components/eventos/IncrementView.php', {
+        fetch('assets/components/eventos/peticiones/incremento_vistas.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -395,7 +395,7 @@
 
             console.log('📤 Enviando request:', requestBody);
 
-            fetch('assets/components/eventos/getEventos.php', {
+            fetch('assets/components/eventos/peticiones/getEventos.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -448,7 +448,7 @@
                                     <img src="${imagenUrl}" alt="${evento.nombre}">
                                     ${estadoHTML}
                                 </div>
-                                <div class="event-card-details">
+                                <div class="event-card-detalles">
                                     <h3 class="event-card-title">${evento.nombre}</h3>
                                     <div class="event-card-info">
                                         <div class="event-card-date">${formatearFecha(evento.fecha_inicio, evento.fecha_fin)}</div>
@@ -461,7 +461,7 @@
 
                             eventItem.addEventListener('click', () => {
                                 incrementarVisitas(evento.id_evento);
-                                window.location.href = `details_evento.php?id=${evento.id_evento}`;
+                                window.location.href = `assets\components\views\detalles_evento.php?id=${evento.id_evento}`;
                             });
 
                             eventsGrid.appendChild(eventItem);
@@ -709,14 +709,28 @@
 
             categoryContainer.innerHTML = '<div class="loading-indicator">Cargando categorías...</div>';
 
-            fetch('assets/components/eventos/getCategoriasEvento.php', {
+            fetch('assets/components/eventos/peticiones/getCategoriasEvento.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
-                    }
+                    },
+                    body: JSON.stringify({})
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.text().then(text => {
+                        try {
+                            return JSON.parse(text);
+                        } catch (e) {
+                            console.error('Respuesta no es JSON válido:', text);
+                            throw new Error('Respuesta inválida del servidor');
+                        }
+                    });
+                })
                 .then(data => {
+                    console.log('Datos de categorías recibidos:', data);
                     categoryContainer.innerHTML = '';
 
                     if (data.success && data.categoriasEvento && data.categoriasEvento.length > 0) {
@@ -725,16 +739,16 @@
                             const categoryLink = document.createElement('a');
                             categoryLink.href = "#";
                             categoryLink.classList.add('category-link');
-                            categoryLink.setAttribute('data-value', categoria.id_cat_evento);
+                            categoryLink.setAttribute('data-value', categoria.id_categoria);
 
-                            let categoryName = categoria.nombre_cat_evento;
-                            categoryName = categoryName.split(' ').map(word =>
+                            let nombre_categorias = categoria.nombre; //lo cambie debido a la diferencia en mi base de datos
+                            nombre_categorias = nombre_categorias.split(' ').map(word =>
                                 word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                             ).join(' ');
 
-                            categoryLink.textContent = categoryName;
+                            categoryLink.textContent = nombre_categorias;
 
-                            if (categoriaFiltro === categoria.id_cat_evento) {
+                            if (categoriaFiltro === categoria.id_categoria) {
                                 categoryLink.classList.add('active');
                             }
 
@@ -745,11 +759,11 @@
                                     link.classList.remove('active')
                                 );
 
-                                if (categoriaFiltro === categoria.id_cat_evento) {
+                                if (categoriaFiltro === categoria.id_categoria) {
                                     categoriaFiltro = '';
                                 } else {
                                     this.classList.add('active');
-                                    categoriaFiltro = categoria.id_cat_evento;
+                                    categoriaFiltro = categoria.id_categoria;
                                 }
 
                                 actualizarURL();
@@ -766,7 +780,8 @@
                 })
                 .catch(error => {
                     console.error('Error al cargar categorías:', error);
-                    categoryContainer.innerHTML = '<div class="error-message">No se pudieron cargar las categorías</div>';
+                    console.error('Detalles del error:', error.message);
+                    categoryContainer.innerHTML = '<div class="error-message">Error: ' + error.message + '</div>';
                 });
         }
 
@@ -775,7 +790,7 @@
             const bannerContainer = document.getElementById('banner');
             if (!bannerContainer) return;
 
-            fetch('assets/components/eventos/getBannerEvento.php', {
+            fetch('assets/components/eventos/peticiones/getBannerEvento.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -859,7 +874,7 @@
 
             cardsContainer.innerHTML = '<div class="loading-indicator">Cargando eventos...</div>';
 
-            fetch('assets/components/eventos/getMejoresEventos.php', {
+            fetch('assets/components/eventos/peticiones/getMejoresEventos.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -900,7 +915,7 @@
                                 <img src="${imagenUrl}" alt="${evento.nombre}">
                                 ${estadoEvento ? `<div class="event-status">${estadoEvento}</div>` : ''}
                             </div>
-                            <div class="event-details">
+                            <div class="event-detalles">
                                 <h3 class="event-title">${evento.nombre}</h3>
                                 <div class="event-info">
                                     <div class="event-date">${fechaTexto}</div>
@@ -913,7 +928,7 @@
 
                             eventItem.addEventListener('click', function() {
                                 incrementarVisitas(evento.id_evento);
-                                window.location.href = `details_evento.php?id=${evento.id_evento}`;
+                                window.location.href = `assets\components\views\detalles_evento.php?id=${evento.id_evento}`;
                             });
 
                             cardsContainer.appendChild(eventItem);
@@ -937,14 +952,14 @@
 
             cardsContainer.innerHTML = '<div class="loading-indicator">Cargando eventos...</div>';
 
-            fetch('assets/components/eventos/getEventoOnline.php', {
+            fetch('assets/components/eventos/peticiones/getEventoOnline.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         estado: 'activo',
-                        tipo: 'online',
+                        tipo: 'virtual',
                         limite: 6,
                         pagina: 0,
                         orden: 'fecha_inicio',
@@ -981,7 +996,7 @@
                                 <img src="${imagenUrl}" alt="${evento.nombre}">
                                 ${estadoEvento ? `<div class="event-status">${estadoEvento}</div>` : ''}
                             </div>
-                            <div class="event-details">
+                            <div class="event-detalles">
                                 <h3 class="event-title">${evento.nombre}</h3>
                                 <div class="event-date">${fechaTexto}</div>
                                 <div class="event-price">${formatearPrecio(evento.precio_entrada, evento.es_gratuito)}</div>
@@ -992,7 +1007,7 @@
 
                             eventItem.addEventListener('click', function() {
                                 incrementarVisitas(evento.id_evento);
-                                window.location.href = `details_evento.php?id=${evento.id_evento}`;
+                                window.location.href = `assets\components\views\detalles_evento.php?id=${evento.id_evento}`;
                             });
 
                             cardsContainer.appendChild(eventItem);
@@ -1179,3 +1194,4 @@
             scrollToIndex(currentIndex);
         });
     }
+

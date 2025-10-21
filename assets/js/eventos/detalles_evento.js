@@ -99,7 +99,7 @@ function loadBannerConFotosEvento(evento) {
 // =============================================================================
 
 function loadBannerDinamicoOriginal() {
-    fetch('assets/components/eventos/getBannerEvento.php', {
+    fetch('../../../assets/components/eventos/peticiones/getBannerEvento.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -300,7 +300,7 @@ const id = parametros.get("id");
 const mainContent = document.getElementById('main-content');
 
 function cargarDetallesEvento() {
-    fetch('assets/components/eventos/getDetailEvento.php', {
+    fetch('../../../assets/components/eventos/peticiones/getDetallesEvento.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -571,7 +571,7 @@ function cargarEventosRelacionados(eventoActual) {
 
     // Simular tiempo de carga y luego cargar eventos
     setTimeout(() => {
-        fetch('assets/components/eventos/getMejoresEventos.php', {
+        fetch('../../../assets/components/eventos/peticiones/getMejoresEventos.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -758,7 +758,7 @@ function determinarEstadoEvento(evento) {
 }
 
 function incrementarVisitas(idEvento) {
-    fetch('assets/components/eventos/IncrementView.php', {
+    fetch('../../../assets/components/eventos/peticiones/incremento_vistas.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

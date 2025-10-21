@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             events: function (info, successCallback, failureCallback) {
                 // Cargar eventos desde el API
-                fetch('assets/components/eventos/getEventos.php', {
+                fetch('assets/components/eventos/peticiones/getEventos.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     end: evento.fecha_fin || evento.fecha_inicio,
                                     backgroundColor: backgroundColor,
                                     borderColor: backgroundColor,
-                                    url: `details_evento.php?id=${evento.id_evento}`,
+                                    url: `detalles_evento.php?id=${evento.id_evento}`,
                                     extendedProps: {
                                         location: `${evento.nombre_municipio}, ${evento.departamento}`,
                                         price: evento.es_gratuito ? 'Gratuito' : `$${Number(evento.precio_entrada).toLocaleString('es-CO')}`,

@@ -23,17 +23,21 @@ $fecha_actual = date('Y-m-d H:i:s');
 // Consulta base con conteo de personas registradas
 $query = "
     SELECT eventos.*, 
-           municipio.municipio AS nombre_municipio,
-           COALESCE(COUNT(registro_asistencia_evento.id_registro), 0) AS personas_registradas
+           COALESCE(m.municipio, 'Sin municipio') AS nombre_municipio,
+           COALESCE(COUNT(r.id_registro), 0) AS personas_registradas
     FROM eventos
-    LEFT JOIN municipio ON eventos.municipio = municipio.idmuni
-    LEFT JOIN registro_asistencia_evento ON eventos.id_evento = registro_asistencia_evento.id_evento
+    LEFT JOIN municipio m ON eventos.municipio = m.idmuni
+    LEFT JOIN registro_asistencia_evento r ON eventos.id_evento = r.id_evento
     WHERE 1=1
 ";
 
+// Filtro por tipo (online/presencial)
 if ($tipo !== NULL) {
     $tipo = str_replace("'", "''", $tipo);
     $query .= " AND eventos.tipo = '" . $tipo . "'";
+} else {
+    // Si no se especifica tipo, por defecto buscar eventos online
+    $query .= " AND eventos.tipo = 'virtual'";
 }
 
 // Agregar filtros
@@ -47,8 +51,9 @@ if ($estado !== NULL) {
     $query .= " AND eventos.estado = '" . $estado . "'";
 }
 
-// ✅ FILTRO CRÍTICO: Solo eventos que NO han pasado
-// Usamos COALESCE para manejar casos donde fecha_fin es NULL
+// ✅ FILTRO DE FECHAS TEMPORAL - Mostrar todos los eventos online para prueba
+// Comentado temporalmente para mostrar eventos
+/*
 if (!$eventos_pasados) {
     $query .= " AND (
         CASE 
@@ -57,16 +62,8 @@ if (!$eventos_pasados) {
             ELSE eventos.fecha_inicio >= '" . $fecha_actual . "'
         END
     )";
-} else {
-    // Si se solicitan eventos pasados
-    $query .= " AND (
-        CASE 
-            WHEN eventos.fecha_fin IS NOT NULL AND eventos.fecha_fin != '' 
-            THEN eventos.fecha_fin < '" . $fecha_actual . "'
-            ELSE eventos.fecha_inicio < '" . $fecha_actual . "'
-        END
-    )";
 }
+*/
 
 // Agrupar por evento para evitar duplicados
 $query .= " GROUP BY eventos.id_evento";
@@ -91,11 +88,11 @@ $offset = $pagina * $limite;
 $query .= " LIMIT " . $limite . " OFFSET " . $offset;
 
 // Ejecutar consulta
-$result = DB::Query($query);
+$result = $conn->query($query);
 $eventos = array();
 
 if ($result) {
-    while ($row = $result->fetchAssoc()) {
+    while ($row = $result->fetch_assoc()) {
         $eventos[] = $row;
     }
 }
@@ -105,13 +102,17 @@ $queryTotal = "SELECT COUNT(DISTINCT eventos.id_evento) as total FROM eventos WH
 
 if ($tipo !== NULL) {
     $queryTotal .= " AND tipo = '" . $tipo . "'";
+} else {
+    // Si no se especifica tipo, por defecto buscar eventos online
+    $queryTotal .= " AND tipo = 'virtual'";
 }
 
 if ($estado !== NULL) {
     $queryTotal .= " AND estado = '" . $estado . "'";
 }
 
-// Aplicar el mismo filtro de fechas al conteo total
+// Aplicar el mismo filtro de fechas al conteo total - COMENTADO TEMPORALMENTE
+/*
 if (!$eventos_pasados) {
     $queryTotal .= " AND (
         CASE 
@@ -120,20 +121,13 @@ if (!$eventos_pasados) {
             ELSE eventos.fecha_inicio >= '" . $fecha_actual . "'
         END
     )";
-} else {
-    $queryTotal .= " AND (
-        CASE 
-            WHEN eventos.fecha_fin IS NOT NULL AND eventos.fecha_fin != '' 
-            THEN eventos.fecha_fin < '" . $fecha_actual . "'
-            ELSE eventos.fecha_inicio < '" . $fecha_actual . "'
-        END
-    )";
 }
+*/
 
-$resultado_total = DB::Query($queryTotal);
+$resultado_total = $conn->query($queryTotal);
 $total = 0;
 
-if ($resultado_total && $row_total = $resultado_total->fetchAssoc()) {
+if ($resultado_total && $row_total = $resultado_total->fetch_assoc()) {
     $total = $row_total['total'];
 }
 

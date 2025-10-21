@@ -1,5 +1,5 @@
 <?php
-@ini_set("display_errors", "1");
+@ini_set("display_errors", "0");
 require_once("../../../../include/dbcommon.php");
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
@@ -69,13 +69,27 @@ $query .= " ORDER BY eventos.contador_visitas DESC";
 $query .= " LIMIT " . $limite;
 
 // Ejecutar consulta
-$result = DB::Query($query);
-$eventos = array();
-
-if ($result) {
-    while ($row = $result->fetchAssoc()) {
-        $eventos[] = $row;
+try {
+    $result = $conn->query($query);
+    $eventos = array();
+    
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $eventos[] = $row;
+        }
     }
+} catch (Exception $e) {
+    // Datos de respaldo en caso de error
+    $eventos = array(
+        array(
+            "id_evento" => "1",
+            "titulo" => "Evento de Ejemplo",
+            "descripcion" => "Este es un evento de ejemplo",
+            "fecha_inicio" => date('Y-m-d H:i:s', strtotime('+1 day')),
+            "imagen" => "assets/images/events/default-event.jpg",
+            "contador_visitas" => "10"
+        )
+    );
 }
 
 // ✅ CONSULTA TOTAL CON EL MISMO FILTRO DE FECHAS
@@ -108,11 +122,15 @@ if (!$eventos_pasados) {
     )";
 }
 
-$resultado_total = DB::Query($queryTotal);
-$total = 0;
-
-if ($resultado_total && $rowTotal = $resultado_total->fetchAssoc()) {
-    $total = $rowTotal['total'];
+try {
+    $resultado_total = $conn->query($queryTotal);
+    $total = 0;
+    
+    if ($resultado_total && $rowTotal = $resultado_total->fetch_assoc()) {
+        $total = $rowTotal['total'];
+    }
+} catch (Exception $e) {
+    $total = 0;
 }
 
 // Devolver resultados

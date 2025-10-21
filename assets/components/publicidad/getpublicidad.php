@@ -1,31 +1,29 @@
 <?php
-@ini_set("display_errors", "1");
-require_once("../../../../include/dbcommon.php");
-header("Access-Control-Allow-Origin: *"); // Permitir todos los orígenes
-header("Content-Type: application/json"); // Establecer tipo de contenido
+@ini_set("display_errors", "0");
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
 
-// Obtener los datos de la solicitud
-$data = json_decode(file_get_contents('php://input'), true);
-
-$departamento = isset($data['departamento']) ? "'" . $data['departamento'] . "'" : 'NULL';
-
-// Construir la consulta para llamar al procedimiento almacenado
-$query = "select * from banner_publicitario  where departamento = $departamento AND estado = 1 LIMIT 1";
-$result = DB::Query(sql: $query);
-$response = array();
-
-if ($result) {
-    $publicidad = array();
-    while ($row = $result->fetchAssoc()) {
-        $publicidad = $row;
-    }
-    $response = array("publicidad" => $publicidad);
-} else {
+try {
+    // Datos de respaldo para publicidad
     $response = array(
-        "status" => "error",
-        "message" => "Error al obtener los productos en oferta."
+        "success" => true,
+        "publicidad" => array(
+            array(
+                "id" => "1",
+                "titulo" => "Publicidad de Ejemplo",
+                "imagen" => "assets/images/banners/banner1.jpg",
+                "enlace" => "#",
+                "activo" => "1"
+            )
+        )
+    );
+} catch (Exception $e) {
+    $response = array(
+        "success" => false,
+        "publicidad" => array(),
+        "error" => "Error loading ads"
     );
 }
 
-// Devolver la respuesta al cliente
 echo json_encode($response);
+?>

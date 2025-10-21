@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> Red Emprender </title>
     <!-- favicons Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo/logo1.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo/logo1.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo/logo1.png" />
-    <link rel="manifest" href="assets/images/favicons/site.webmanifest" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/images/logo/logo1.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/images/logo/logo1.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/images/logo/logo1.png" />
+    <link rel="manifest" href="../../../assets/images/favicons/site.webmanifest" />
     <meta name="description" content="ogenix HTML 5 Template " />
 
     <!-- fonts -->
@@ -24,36 +24,38 @@
         href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
-    <link rel="stylesheet" href="assets/vendors/animate/custom-animate.css" />
-    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
-    <link rel="stylesheet" href="assets/vendors/jarallax/jarallax.css" />
-    <link rel="stylesheet" href="assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css" />
-    <link rel="stylesheet" href="assets/vendors/nouislider/nouislider.min.css" />
-    <link rel="stylesheet" href="assets/vendors/nouislider/nouislider.pips.css" />
-    <link rel="stylesheet" href="assets/vendors/odometer/odometer.min.css" />
-    <link rel="stylesheet" href="assets/vendors/swiper/swiper.min.css" />
-    <link rel="stylesheet" href="assets/vendors/ogenix-icons/style.css" />
-    <link rel="stylesheet" href="assets/vendors/tiny-slider/tiny-slider.min.css" />
-    <link rel="stylesheet" href="assets/vendors/reey-font/stylesheet.css" />
-    <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.carousel.min.css" />
-    <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="assets/vendors/bxslider/jquery.bxslider.css" />
-    <link rel="stylesheet" href="assets/vendors/bootstrap-select/css/bootstrap-select.min.css" />
-    <link rel="stylesheet" href="assets/vendors/vegas/vegas.min.css" />
-    <link rel="stylesheet" href="assets/vendors/jquery-ui/jquery-ui.css" />
-    <link rel="stylesheet" href="assets/vendors/timepicker/timePicker.css" />
-    <link rel="stylesheet" href="assets/vendors/nice-select/nice-select.css" />
-    <link rel="stylesheet" href="assets/css/details_evento.css">
+    <link rel="stylesheet" href="../../../assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/animate/animate.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/animate/custom-animate.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/jarallax/jarallax.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/nouislider/nouislider.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/nouislider/nouislider.pips.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/odometer/odometer.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/ogenix-icons/style.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/tiny-slider/tiny-slider.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/reey-font/stylesheet.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/owl-carousel/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/bxslider/jquery.bxslider.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/bootstrap-select/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/vegas/vegas.min.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/jquery-ui/jquery-ui.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/timepicker/timePicker.css" />
+    <link rel="stylesheet" href="../../../assets/vendors/nice-select/nice-select.css" />
+    <link rel="stylesheet" href="../../../assets/css/details_evento.css">
 
     <!-- template styles -->
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" href="assets/css/ogenix.css">
-    <link rel="stylesheet" href="assets/css/ogenix-responsive.css">
+    <link rel="stylesheet" href="../../../assets/css/app.css">
+    <link rel="stylesheet" href="../../../assets/css/ogenix.css">
+    <link rel="stylesheet" href="../../../assets/css/ogenix-responsive.css">
 
 
-    <!-- Incluye los scripts de Bootstrap -->
+    <!-- jQuery primero -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap después -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -75,65 +77,65 @@
     ?>
     <div>
         <!--Subscribe modal-->
-        <?php require_once "assets/layout/offerofday.php"; ?>
+        <?php require_once "../../layout/offerofday.php"; ?>
         <!--Subscribe header-->
-        <?php require_once "assets/layout/header.php"; ?>
+        <?php require_once "../../layout/header.php"; ?>
         <!--Subscribe contenido-->
-        <?php require_once "assets/components/details_evento.php"; ?>
+        <?php require_once "../details_evento.php"; ?>
         <!--Subscribe One Start-->
-        <?php require_once "assets/layout/subscribe.php"; ?>
+        <?php require_once "../../layout/subscribe.php"; ?>
         <!--Subscribe One End-->
-        <?php require_once "assets/layout/footer.php"; ?>
+        <?php require_once "../../layout/footer.php"; ?>
     </div>
 
 
-    <script src='assets/js/eventos/detalles_evento.js'></script>
-    <script src='assets/js/eventos/registro_evento.js'></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
-    <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendors/jarallax/jarallax.min.js"></script>
-    <script src="assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
-    <script src="assets/vendors/jquery-appear/jquery.appear.min.js"></script>
-    <script src="assets/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
-    <script src="assets/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="assets/vendors/jquery-validate/jquery.validate.min.js"></script>
-    <script src="assets/vendors/nouislider/nouislider.min.js"></script>
-    <script src="assets/vendors/odometer/odometer.min.js"></script>
-    <script src="assets/vendors/swiper/swiper.min.js"></script>
-    <script src="assets/vendors/tiny-slider/tiny-slider.min.js"></script>
-    <script src="assets/vendors/wnumb/wNumb.min.js"></script>
-    <script src="assets/vendors/wow/wow.js"></script>
-    <script src="assets/vendors/isotope/isotope.js"></script>
-    <script src="assets/vendors/countdown/jquery.countdown.min.js"></script>
-    <script src="assets/vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="assets/vendors/bxslider/jquery.bxslider.min.js"></script>
-    <script src="assets/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
-    <script src="assets/vendors/vegas/vegas.min.js"></script>
-    <script src="assets/vendors/jquery-ui/jquery-ui.js"></script>
-    <script src="assets/vendors/timepicker/timePicker.js"></script>
-    <script src="assets/vendors/circleType/jquery.circleType.js"></script>
-    <script src="assets/vendors/circleType/jquery.lettering.min.js"></script>
-    <script src="assets/vendors/nice-select/jquery.nice-select.min.js"></script>
-
-
-
-
+    <script src='../../../assets/js/eventos/detalles_evento.js'></script>
+    <script src='../../../assets/js/eventos/registro_evento.js'></script>
+    <script src="../../../assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/vendors/jarallax/jarallax.min.js"></script>
+    <script src="../../../assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
+    <script src="../../../assets/vendors/jquery-appear/jquery.appear.min.js"></script>
+    <script src="../../../assets/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
+    <script src="../../../assets/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="../../../assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+    <script src="../../../assets/vendors/nouislider/nouislider.min.js"></script>
+    <script src="../../../assets/vendors/odometer/odometer.min.js"></script>
+    <script src="../../../assets/vendors/swiper/swiper.min.js"></script>
+    <script src="../../../assets/vendors/tiny-slider/tiny-slider.min.js"></script>
+    <script src="../../../assets/vendors/wnumb/wNumb.min.js"></script>
+    <script src="../../../assets/vendors/wow/wow.js"></script>
+    <script src="../../../assets/vendors/isotope/isotope.js"></script>
+    <script src="../../../assets/vendors/countdown/jquery.countdown.min.js"></script>
+    <script src="../../../assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="../../../assets/vendors/bxslider/jquery.bxslider.min.js"></script>
+    <script src="../../../assets/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="../../../assets/vendors/vegas/vegas.min.js"></script>
+    <script src="../../../assets/vendors/jquery-ui/jquery-ui.js"></script>
+    <script src="../../../assets/vendors/timepicker/timePicker.js"></script>
+    <script src="../../../assets/vendors/circleType/jquery.circleType.js"></script>
+    <script src="../../../assets/vendors/circleType/jquery.lettering.min.js"></script>
+    <script src="../../../assets/vendors/nice-select/jquery.nice-select.min.js"></script>
 
     <!-- template js -->
-    <script src="assets/js/ogenix.js"></script>
+    <script src="../../../assets/js/ogenix.js"></script>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Ocultar preloader después de cargar
       window.addEventListener('load', function() {
-        document.querySelector('.preloader').classList.add('hide');
-        document.querySelector('.page-wrapper').classList.add('loaded');
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+          preloader.style.display = 'none';
+        }
       });
       
+      // Timeout de seguridad
       setTimeout(function() {
-        document.querySelector('.preloader').classList.add('hide');
-        document.querySelector('.page-wrapper').classList.add('loaded');
-      }, 3000);
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+          preloader.style.display = 'none';
+        }
+      }, 2000);
     });
 </script>
 </html>

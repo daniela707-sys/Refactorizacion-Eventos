@@ -93,11 +93,11 @@ $offset = $pagina * $limite;
 $query .= " ORDER BY eventos.`$orden` $direccion LIMIT $limite OFFSET $offset";
 
 // Ejecutar consulta
-$result = DB::Query($query);
+$result = $conn->query($query);
 $eventos = array();
 
 if ($result) {
-    while ($row = $result->fetchAssoc()) {
+    while ($row = $result->fetch_assoc()) {
         $eventos[] = $row;
     }
 }
@@ -141,9 +141,9 @@ if ($buscar !== NULL) {
     $queryTotal .= " AND (eventos.nombre LIKE '%" . $buscar . "%' OR eventos.descripcion LIKE '%" . $buscar . "%')";
 }
 
-$resultado_total = DB::Query($queryTotal);
+$resultado_total = $conn->query($queryTotal);
 $total = 0;
-if ($resultado_total && $rowTotal = $resultado_total->fetchAssoc()) {
+if ($resultado_total && $rowTotal = $resultado_total->fetch_assoc()) {
     $total = $rowTotal['total'];
 }
 
@@ -154,9 +154,9 @@ $queryContrario = str_replace(
     $queryTotal
 );
 
-$resultado_Contrario = DB::Query($queryContrario);
+$resultado_Contrario = $conn->query($queryContrario);
 $totalContrario = 0;
-if ($resultado_Contrario && $rowContrario = $resultado_Contrario->fetchAssoc()) {
+if ($resultado_Contrario && $rowContrario = $resultado_Contrario->fetch_assoc()) {
     $totalContrario = $rowContrario['total'];
 }
 
